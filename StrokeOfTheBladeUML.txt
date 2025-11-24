@@ -1,0 +1,114 @@
+@startuml
+
+' Sword State Machine
+class SwordStateMachine {
+  - State currentState
+  - Katana katanaL
+  - Katana katanaR
+  - Katana currentKatana
+  - void Update()
+  - void FixedUpdate()
+  + void SwitchState(State newState)
+  + void GetCurrentState()
+  + void SwitchKatana()
+}
+
+abstract class State {
+  # SwordStateMachine stateMachine
+  # Katana katanaL
+  # Katana katanaR
+  + void Initialize(SwordStateMachine stateMachine, Katana katanaL, Katana katanaR)
+  + abstract void EnterState()
+  + abstract void UpdateState()
+  + abstract void FixedUpdateState()
+  + abstract void ExitState()
+}
+
+class Sheath {}
+class Charged {}
+class UnCharged {}
+
+State <|-- Sheath
+State <|-- Charged
+State <|-- UnCharged
+
+SwordStateMachine --> State
+Katana --> SwordStateMachine
+State --> Katana
+
+' Katana
+class Katana {
+  - GameObject blade
+  - GameObject sheath
+  - IElement left
+  - IElement right
+  - IElement currentElement
+  + void HideKatana()
+  + void ShowKatana()
+  + float GetKatanaSpeed()
+  + Vector2 GetKatanaPosition()
+  + bool IsSheathed()
+  + void AddElement(bool left)
+  + void ResetElement()
+}
+
+' Elements
+interface IElement {
+  - float speed
+  - float damage
+  - Shader shader
+  + void OnSpawn(Renderer renderer)
+  + void Move(GameObject projectile)
+  + void OnCollision(GameObject projectile, IElement other)
+  + void OnDestroy()
+}
+
+dataclass ScriptableObject{
+}
+
+abstract class BaseElement {
+  + void OnSpawn(Renderer renderer)
+  + void Move(GameObject projectile)
+  + virtual void OnCollision(GameObject projectile, IElement other)
+  + virtual void OnDestroy()
+}
+
+class FireElement {
+  + override void OnCollision(GameObject projectile, IElement other)
+  + override void OnDestroy()
+}
+
+class WoodElement {
+  + override void OnCollision(GameObject projectile, IElement other)
+  + override void OnDestroy()
+}
+
+class EarthElement {
+  + override void OnCollision(GameObject projectile, IElement other)
+  + override void OnDestroy()
+}
+
+class WaterElement {
+  + override void OnCollision(GameObject projectile, IElement other)
+  + override void OnDestroy()
+}
+
+IElement <|-- BaseElement
+ScriptableObject <|-- BaseElement
+BaseElement <|-- FireElement
+BaseElement <|-- WoodElement
+BaseElement <|-- EarthElement
+BaseElement <|-- WaterElement
+
+' Projectile
+class Projectile {
+  - IElement element
+  + void SetElement(IElement element)
+  - void Update()
+  - void OnTriggerEnter()
+}
+
+Projectile --> IElement
+Katana --> IElement
+
+@enduml
