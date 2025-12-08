@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 428562}
   - component: {fileID: 6568702}
   m_Layer: 0
-  m_Name: collider5
+  m_Name: Hilt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 435268}
   - component: {fileID: 6513934}
   m_Layer: 0
-  m_Name: collider4
+  m_Name: Hilt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 499502}
   - component: {fileID: 6592210}
   m_Layer: 0
-  m_Name: collider3
+  m_Name: BladeTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 433064}
   - component: {fileID: 6523568}
   m_Layer: 0
-  m_Name: collider2
+  m_Name: BladeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 419894}
   - component: {fileID: 6512432}
   m_Layer: 0
-  m_Name: collider1
+  m_Name: Handel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
