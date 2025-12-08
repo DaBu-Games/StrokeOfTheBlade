@@ -154,43 +154,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.023
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9063079
+      value: 0.9702935
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.42261827
+      value: 0.19698626
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.1370159
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.030879693
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -50
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 475382, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -797,7 +797,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sheath
   controllerNode: 4
-  rb: {fileID: 1362679028}
   followController: 1
   positionLerp: 30
   rotationSmoothFactor: 0.2
@@ -812,9 +811,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962528731}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -827,7 +826,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1120,39 +1119,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.054
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.052174564
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.004106223
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.94551855
+      value: 0.9955511
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.32556817
+      value: 0.07835149
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 142
+      value: 189
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1214,11 +1213,6 @@ Transform:
   - {fileID: 1319257166}
   m_Father: {fileID: 656760392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1278755682 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 5423320, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
-  m_PrefabInstance: {fileID: 86988068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1319257165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,11 +1314,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
---- !u!54 &1362679028 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 5414774, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1607670146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,7 +1345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Katana
   controllerNode: 5
-  rb: {fileID: 1278755682}
   followController: 1
   positionLerp: 30
   rotationSmoothFactor: 0.2
