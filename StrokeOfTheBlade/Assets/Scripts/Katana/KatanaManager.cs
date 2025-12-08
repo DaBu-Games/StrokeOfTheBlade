@@ -39,6 +39,8 @@ public class KatanaManager : MonoBehaviour
     }
 
     public bool IsTipNearMouth() => Vector3.Distance(katana.Tip.position, sheath.Mouth.position) < sheathStartDist;
+    
+    public bool IsTipNearEnd() => Vector3.Distance(katana.Tip.position, sheath.End.position) < sheathStartDist;
 
     public bool IsSheating()
     {

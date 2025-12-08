@@ -169,9 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 475382}
   - component: {fileID: 3334240}
-  - component: {fileID: 5423320}
   - component: {fileID: 2329148}
-  - component: {fileID: 1555929042972719035}
   m_Layer: 0
   m_Name: Katana_Musashi
   m_TagString: Untagged
@@ -204,33 +202,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147894}
   m_Mesh: {fileID: 4300002, guid: e339af72effb8244387acccd1b74dc00, type: 3}
---- !u!54 &5423320
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147894}
-  serializedVersion: 5
-  m_Mass: 1.3
-  m_LinearDamping: 0
-  m_AngularDamping: 0.3
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!23 &2329148
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -279,21 +250,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1555929042972719035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969f4b7edae34ce8b68d09bcec5b2e31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Katana
-  rb: {fileID: 5423320}
-  tip: {fileID: 782544016924346175}
-  katana: 0
 --- !u!1 &154410
 GameObject:
   m_ObjectHideFlags: 0

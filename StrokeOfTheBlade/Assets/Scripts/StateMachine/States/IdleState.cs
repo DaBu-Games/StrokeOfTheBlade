@@ -1,9 +1,6 @@
 public class IdleState : IState
 {
     private KatanaManager _katanaManager;
-    
-    private float virbrateAmplitude = 0.5f;
-    private float virbrateDuration = 0.5f;
 
     public IdleState(KatanaManager katanaManager)
     {
@@ -12,7 +9,7 @@ public class IdleState : IState
 
     public void OnEnterState()
     {
-        _katanaManager.Sheath.Vibrate(virbrateAmplitude, virbrateDuration);
+        
     }
     public void OnExitState() { }
     public void OnUpdate(){}

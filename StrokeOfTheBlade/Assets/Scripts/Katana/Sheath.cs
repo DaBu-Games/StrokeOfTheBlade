@@ -3,15 +3,11 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
-public class Sheath : MonoBehaviour
+public class Sheath : BaseController
 {
     [Header("Transforms")]
     [SerializeField] private Transform mouth;
     [SerializeField] private Transform end;
-    
-    [Header("Controller")]
-    [SerializeField] private XRNode sheath;
-    private InputDevice _sheathDevice;
 
     private int _insideSheathCount = 0;
     
@@ -29,18 +25,5 @@ public class Sheath : MonoBehaviour
     {
         if (other.CompareTag("KatanaTip") && _insideSheathCount > 0)
             _insideSheathCount--;
-    }
-    
-    public void RefreshDevice()
-    {
-        _sheathDevice = InputDevices.GetDeviceAtXRNode(sheath);
-    }
-    
-    public void Vibrate(float amplitude, float duration)
-    {
-        if (_sheathDevice.isValid && _sheathDevice.TryGetHapticCapabilities(out HapticCapabilities caps) && caps.supportsImpulse)
-        {
-            _sheathDevice.SendHapticImpulse(0, amplitude, duration);
-        }
     }
 }
