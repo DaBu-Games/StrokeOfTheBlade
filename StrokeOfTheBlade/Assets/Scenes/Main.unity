@@ -201,6 +201,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+--- !u!4 &86988069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 782544016924346175, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+  m_PrefabInstance: {fileID: 86988068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &202345450
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 202345451}
+  - component: {fileID: 202345452}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -233,6 +239,25 @@ Transform:
   - {fileID: 212707878}
   m_Father: {fileID: 1319257166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202345452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202345450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127e935771bab08449ff02f86ec20318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::katanaManager
+  katanaRb: {fileID: 1278755682}
+  katanaTip: {fileID: 86988069}
+  sheathMouth: {fileID: 1138947171}
+  katana: 5
+  sheath: 4
+  maxBounds: 0.08
+  pullStartDist: 0.04
 --- !u!1001 &202645493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24daae2bf21ed314ba73c46b9c8126ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  katanaManager: {fileID: 0}
+  katanaManager: {fileID: 202345452}
 --- !u!4 &806442692
 Transform:
   m_ObjectHideFlags: 0
@@ -1085,6 +1110,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
+--- !u!4 &1138947171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2733569574185936552, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
+  m_PrefabInstance: {fileID: 1138947170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1228085140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,6 +1149,11 @@ Transform:
   - {fileID: 1319257166}
   m_Father: {fileID: 656760392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1278755682 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5423320, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+  m_PrefabInstance: {fileID: 86988068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1319257165
 GameObject:
   m_ObjectHideFlags: 0

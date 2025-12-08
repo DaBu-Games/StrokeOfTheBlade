@@ -26,9 +26,10 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
-            () => katanaManager.IsTipTooFar()
+            () => katanaManager.IsTipNearMouth()
         ));
         
+        _sm.SwitchState(_idle);
     }
     
     void Update()

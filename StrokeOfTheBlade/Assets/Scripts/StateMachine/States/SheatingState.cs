@@ -29,14 +29,6 @@ public class SheathingState : IState
 
     public void OnFixedUpdate()
     {
-        if (_katanaManager.IsTipTooFar())
-            return;
         
-        Vector3 dir = (_katanaManager.SheathMouth.position - _katanaManager.KatanaTip.position).normalized;
-        float dist = _katanaManager.DistanceToMouth();
-        
-        float force = _pullStrength * Mathf.Clamp01(dist * 10f);
-
-        _katanaRb.AddForce(dir * force, ForceMode.Acceleration);
     }
 }
