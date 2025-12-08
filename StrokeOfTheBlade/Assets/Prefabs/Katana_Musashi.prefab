@@ -116,9 +116,9 @@ GameObject:
   m_Component:
   - component: {fileID: 499502}
   - component: {fileID: 6592210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BladeTip
-  m_TagString: Untagged
+  m_TagString: KatanaTip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0051669236, y: 0.36496106, z: 0.027787037}
+  m_Size: {x: 0.05, y: 0.36496106, z: 0.05}
   m_Center: {x: -0.0023200111, y: 0.33118007, z: 0.00048294978}
 --- !u!1 &147894
 GameObject:
@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 3334240}
   - component: {fileID: 5423320}
   - component: {fileID: 2329148}
+  - component: {fileID: 1555929042972719035}
   m_Layer: 0
   m_Name: Katana_Musashi
   m_TagString: Untagged
@@ -278,6 +279,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1555929042972719035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969f4b7edae34ce8b68d09bcec5b2e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Katana
+  rb: {fileID: 5423320}
+  tip: {fileID: 782544016924346175}
+  katana: 0
 --- !u!1 &154410
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +345,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0051669236, y: 0.34362096, z: 0.027787037}
+  m_Size: {x: 0.05, y: 0.34362096, z: 0.05}
   m_Center: {x: -0.0023200111, y: 0.320511, z: 0.0004829674}
 --- !u!1 &178000
 GameObject:

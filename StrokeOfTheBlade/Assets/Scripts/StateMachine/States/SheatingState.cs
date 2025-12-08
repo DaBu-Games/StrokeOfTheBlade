@@ -2,22 +2,21 @@ using UnityEngine;
 
 public class SheathingState : IState
 {
-    private katanaManager _katanaManager;
+    private KatanaManager _katanaManager;
     private Rigidbody _katanaRb;
-    private float _pullStrength = 20f;
     
     private float virbrateAmplitude = 0.5f;
     private float virbrateDuration = 0.5f;
 
-    public SheathingState(katanaManager sensor)
+    public SheathingState(KatanaManager sensor)
     {
         this._katanaManager = sensor;
-        this._katanaRb = _katanaManager.KatanaRb;
+        this._katanaRb = _katanaManager.Katana.Rb;
     }
 
     public void OnEnterState()
     {
-        _katanaManager.VibrateKatana(virbrateAmplitude, virbrateDuration);
+        _katanaManager.Katana.Vibrate(virbrateAmplitude, virbrateDuration);
     }
 
     public void OnExitState()

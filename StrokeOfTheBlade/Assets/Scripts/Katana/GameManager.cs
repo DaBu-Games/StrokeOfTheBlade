@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private katanaManager katanaManager;
+    [SerializeField] private KatanaManager katanaManager;
     
     private StateMachine _sm;
     
@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => katanaManager.IsTipNearMouth()
+            () => katanaManager.IsSheating() && katanaManager.IsTipNearMouth()
         ));
         
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
-            () => katanaManager.IsTipNearMouth()
+            () => !katanaManager.IsSheating()
         ));
         
         _sm.SwitchState(_idle);
