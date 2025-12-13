@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     //states
     private IdleState _idle;
     private SheathingState _sheathing;
+    private SheathedState _sheathed;
     
     void Start()
     {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
         
         _idle = new IdleState(katanaManager);
         _sheathing = new SheathingState(katanaManager);
+        _sheathed = new SheathedState(katanaManager);
         
         _sm.AddTransition(new Transition(
             _idle,
@@ -27,6 +29,12 @@ public class GameManager : MonoBehaviour
             _sheathing,
             _idle,
             () => !katanaManager.IsSheating()
+        ));
+        
+        _sm.AddTransition(new Transition(
+            _sheathed,
+            _sheathed,
+            () => katanaManager.IsTipNearEnd()
         ));
         
         _sm.SwitchState(_idle);

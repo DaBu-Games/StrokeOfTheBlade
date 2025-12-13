@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class Transition
 {
-    public readonly IState fromState;
-    public readonly IState toState;
-    private System.Func<bool> condition;
+    public readonly IState FromState;
+    public readonly IState ToState;
+    private System.Func<bool> _condition;
 
     public Transition(IState fromState, IState toState, System.Func<bool> condition)
     {
-        this.fromState = fromState;
-        this.toState = toState;
-        this.condition = condition;
+        FromState = fromState;
+        ToState = toState;
+        _condition = condition;
     }
 
     public bool CheckCondition()
     {
-        return condition();
+        return _condition();
     }
 }

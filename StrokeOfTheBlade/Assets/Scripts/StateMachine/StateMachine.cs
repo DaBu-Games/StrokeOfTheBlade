@@ -13,7 +13,7 @@ public class StateMachine
         foreach (var transition in currentTransitions) 
         {
             if( transition.CheckCondition())
-                SwitchState( transition.toState );
+                SwitchState( transition.ToState );
         }
         
         currentState?.OnUpdate();
@@ -33,7 +33,7 @@ public class StateMachine
         
         currentState.OnEnterState();
         Debug.Log(currentState.ToString());
-        currentTransitions = transitions.FindAll(x => x.fromState == currentState || x.fromState == null);
+        currentTransitions = transitions.FindAll(x => x.FromState == currentState || x.FromState == null);
     }
 
     public void AddTransition(Transition transition)

@@ -18,6 +18,8 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float rotationSmoothFactor = 0.2f; 
     [SerializeField] private float maxAngularSpeed = 40f;
     
+    private Vector3 _positionOffset = Vector3.zero;
+    
     protected Rigidbody Rb;
     
     private void Awake()
@@ -32,17 +34,43 @@ public class BaseController : MonoBehaviour
         RefreshDevice();
     }
     
+    public void AddPositionOffset(Vector3 offset)
+    {
+        _positionOffset += offset;
+    }
+    
     private void FixedUpdate()
     {
-        if (!followController) return;
+        if (!followController || !_controllerDevice.isValid) return;
 
-        if (!_controllerDevice.isValid ||
-            !_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 handPos) ||
+        if (!_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 handPos) ||
             !_controllerDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion handRot))
             return;
+        
+        Vector3 targetPos = handPos + _positionOffset;
+        _positionOffset = Vector3.zero;
 
-        FollowPosition(handPos);
+        FollowPosition(targetPos);
         FollowRotation(handRot);
+    }
+
+    public void SetDevice(XRNode node)
+    {
+        controllerNode = node;
+        RefreshDevice();
+    }
+    
+    public void RefreshDevice()
+    {
+        _controllerDevice = InputDevices.GetDeviceAtXRNode(controllerNode);
+    }
+    
+    public void Vibrate(float amplitude, float duration)
+    {
+        if (_controllerDevice.isValid && _controllerDevice.TryGetHapticCapabilities(out HapticCapabilities caps) && caps.supportsImpulse)
+        {
+            _controllerDevice.SendHapticImpulse(0, amplitude, duration);
+        }
     }
     
     private void FollowPosition(Vector3 targetPos)
@@ -70,19 +98,6 @@ public class BaseController : MonoBehaviour
         angularVel = Vector3.ClampMagnitude(angularVel, maxAngularSpeed);
 
         Rb.angularVelocity = angularVel;
-    }
-
-    public void RefreshDevice()
-    {
-        _controllerDevice = InputDevices.GetDeviceAtXRNode(controllerNode);
-    }
-    
-    public void Vibrate(float amplitude, float duration)
-    {
-        if (_controllerDevice.isValid && _controllerDevice.TryGetHapticCapabilities(out HapticCapabilities caps) && caps.supportsImpulse)
-        {
-            _controllerDevice.SendHapticImpulse(0, amplitude, duration);
-        }
     }
         
 }

@@ -7,12 +7,6 @@ public class KatanaManager : MonoBehaviour
     [SerializeField] private Katana katana;
     [SerializeField] private Sheath sheath;
     
-    [Header("Distances")]
-    [SerializeField] private float sheathStartDist = 0.02f;
-    
-    [Header("Sheath Alignment")]
-    [SerializeField, Range(0f, 1f)] private float alignmentThreshold = 0.8f;
-    
     public Katana Katana => katana;
     public Sheath Sheath => sheath;
     
@@ -38,21 +32,9 @@ public class KatanaManager : MonoBehaviour
         sheath.RefreshDevice();
     }
 
-    public bool IsTipNearMouth() => Vector3.Distance(katana.Tip.position, sheath.Mouth.position) < sheathStartDist;
+    public bool IsTipNearMouth() => sheath.MouthCheck.IsTagInside;
     
-    public bool IsTipNearEnd() => Vector3.Distance(katana.Tip.position, sheath.End.position) < sheathStartDist;
+    public bool IsTipNearEnd() => sheath.EndCheck.IsTagInside;
 
-    public bool IsSheating()
-    {
-        return sheath.InsideSheathCount > 0; 
-    }
-    
-    public bool ForcedExitSheating()
-    {
-        Vector3 sheathAxis = (sheath.End.position - sheath.Mouth.position).normalized;
-        Vector3 tipDir = (katana.Tip.position - sheath.Mouth.position).normalized;
-        float alignment = Vector3.Dot(sheathAxis, tipDir);
-
-        return alignment < alignmentThreshold;
-    }
+    public bool IsSheating() => Sheath.CollidersCheck.IsTagInside;
 }

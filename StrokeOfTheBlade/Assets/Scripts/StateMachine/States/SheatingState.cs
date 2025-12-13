@@ -1,51 +1,95 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SheathingState : IState
 {
-    private KatanaManager _katanaManager;
-    private Rigidbody _katanaRb;
+    private KatanaManager _kM;
+    private Rigidbody _kRb;
+    private Rigidbody _sRb;
     
-    private float pullStrength = 20f; 
-    private float virbrateAmplitude = 0.5f;
-    private float virbrateDuration = 0.5f;
+    private List<Transform> _points;
 
-    public SheathingState(KatanaManager sensor)
+    private float _smoothing = 0.8f;
+    
+    private float _slideSpeedThreshold = 0.15f;
+    private float _virbrateAmplitude  = 0.25f;
+    
+    private float _virbrateDuration = 0.1f;
+
+    public SheathingState(KatanaManager kM)
     {
-        _katanaManager = sensor;
-        _katanaRb = _katanaManager.Katana.KRb;
+        _kM = kM;
+        _kRb = _kM.Katana.KRb;
+        _sRb = _kM.Sheath.SRb;
+        _points = _kM.Sheath.Points;
     }
 
     public void OnEnterState()
     {
-        _katanaManager.Katana.Vibrate(virbrateAmplitude, virbrateDuration);
-        _katanaRb.isKinematic = false;
     }
 
     public void OnExitState()
     {
-        if (_katanaManager.ForcedExitSheating())
+        if (!_kM.IsTipNearMouth())
         {
-            _katanaManager.Katana.Vibrate(virbrateAmplitude, virbrateDuration);
+            _kM.Katana.Vibrate(1f, _virbrateDuration);
+            _kM.Sheath.Vibrate(1f, _virbrateDuration);
+            Debug.Log("force exit");
         }
     }
 
-    public void OnUpdate() { }
+    public void OnUpdate()
+    {
+        
+    }
 
     public void OnFixedUpdate()
     {
-        Vector3 sheathMouth = _katanaManager.Sheath.Mouth.position;
-        Vector3 sheathEnd = _katanaManager.Sheath.End.position;
-        Vector3 tipPos = _katanaManager.Katana.Tip.position;
+        GuideBlade();
+        ApllyBladeVibration();
+    }
+    
+    private void GuideBlade()
+    {
+        
+        Vector3 tipPos = _kM.Katana.Tip.position;
+        Vector3 targetOffset = Vector3.zero;
+        float closestDistance = float.MaxValue;
 
-        Vector3 sheathAxis = (sheathEnd - sheathMouth).normalized;
+        // Find closest point
+        foreach (var point in _points)
+        {
+            Vector3 worldPoint = point.position;
+            Vector3 offset = worldPoint - tipPos;
+            float dist = offset.magnitude;
 
-        // ------------------------
-        // Option 1: Pull force
-        // ------------------------
-        Vector3 dirToMouth = (sheathMouth - tipPos);
-        float distanceToMouth = dirToMouth.magnitude;
-        Vector3 pullForce = dirToMouth.normalized * (pullStrength * Mathf.Clamp01(distanceToMouth * 10f));
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                targetOffset = offset;
+            }
+        }
 
-        _katanaRb.AddForce(pullForce, ForceMode.Acceleration);
+        // Lock the axis you don't want pulled (e.g., z)
+        targetOffset.z = 0f;
+
+        // Scale pull by distance so it’s stronger when farther
+        float pullStrength = Mathf.Clamp01(closestDistance * 10f); // tweak multiplier
+        Vector3 scaledOffset = targetOffset * pullStrength;
+
+        // Smooth it so it doesn’t teleport
+        Vector3 smoothedOffset = Vector3.Lerp(Vector3.zero, scaledOffset, _smoothing);
+
+        _kM.Katana.AddPositionOffset(smoothedOffset);
+    }
+
+    private void ApllyBladeVibration()
+    {
+        float speed = _kRb.linearVelocity.magnitude + _sRb.linearVelocity.magnitude;
+
+        if (speed > _slideSpeedThreshold)
+        {
+            _kM.Katana.Vibrate(_virbrateAmplitude, 0.05f); 
+        }
     }
 }
