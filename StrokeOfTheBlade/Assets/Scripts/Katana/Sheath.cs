@@ -15,12 +15,14 @@ public class Sheath : BaseController
     
     private List<Transform> _points = new List<Transform>();
 
-    private void Start()
+    protected override void OnAwake()
     {
         foreach (Transform child in pointsParent)
         {
             _points.Add(child);
         }
+        
+        Debug.Log(Rb);
     }
 
     public Rigidbody SRb => Rb;

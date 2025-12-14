@@ -17,8 +17,9 @@ public class BaseController : MonoBehaviour
     [Header("Rotation Follow")]
     [SerializeField] private float rotationSmoothFactor = 0.2f; 
     [SerializeField] private float maxAngularSpeed = 40f;
-    
-    private Vector3 _positionOffset = Vector3.zero;
+
+    private Vector3 _handPos;
+    private Quaternion _handRot;
     
     protected Rigidbody Rb;
     
@@ -30,29 +31,33 @@ public class BaseController : MonoBehaviour
         Rb.useGravity = false;
         Rb.interpolation = RigidbodyInterpolation.Interpolate;
         Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        
+
+        OnAwake();
         RefreshDevice();
-    }
-    
-    public void AddPositionOffset(Vector3 offset)
-    {
-        _positionOffset += offset;
     }
     
     private void FixedUpdate()
     {
-        if (!followController || !_controllerDevice.isValid) return;
-
-        if (!_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 handPos) ||
-            !_controllerDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion handRot))
+        if (!_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out _handPos) ||
+            !_controllerDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out _handRot))
             return;
         
-        Vector3 targetPos = handPos + _positionOffset;
-        _positionOffset = Vector3.zero;
+        if (!followController || !_controllerDevice.isValid) return;
 
-        FollowPosition(targetPos);
-        FollowRotation(handRot);
+        FollowPosition(_handPos);
+        FollowRotation(_handRot);
     }
+
+    protected virtual void OnAwake()
+    {
+        
+    }
+    
+    public void FollowController(bool follow) => followController = follow;
+    
+    public Vector3 HandPosition => _handPos;
+    
+    public Quaternion HandRotation => _handRot;
 
     public void SetDevice(XRNode node)
     {
