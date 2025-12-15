@@ -26,12 +26,11 @@ public class GameManager : MonoBehaviour
             () => katanaManager.IsTipNearMouth()
         ));
         
-        /*
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
-            () => !katanaManager.IsSheating()
-        ));*/
+            () => !_sheathing.IsSheathing()
+        ));
         
         _sm.AddTransition(new Transition(
             _sheathed,

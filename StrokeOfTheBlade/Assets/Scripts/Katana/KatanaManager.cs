@@ -37,4 +37,6 @@ public class KatanaManager : MonoBehaviour
     public bool IsTipNearMouth() => sheath.MouthCheck.IsTagInside;
     
     public bool IsTipNearEnd() => sheath.EndCheck.IsTagInside;
+    
+    public bool IsSheathing() => sheath.ColliderCheck.IsTagInside;
 }

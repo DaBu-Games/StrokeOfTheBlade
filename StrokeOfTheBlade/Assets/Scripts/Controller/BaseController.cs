@@ -25,14 +25,15 @@ public class BaseController : MonoBehaviour
     
     private void Awake()
     {
+        OnAwake();
+        
         _rb = GetComponent<Rigidbody>();
         
         _rb.isKinematic = false;
         _rb.useGravity = false;
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
         _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-
-        OnAwake();
+        
         RefreshDevice();
     }
     
