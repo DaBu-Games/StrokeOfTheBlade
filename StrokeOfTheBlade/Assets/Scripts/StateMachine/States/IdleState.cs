@@ -7,11 +7,9 @@ public class IdleState : IState
         _katanaManager = katanaManager;
     }
 
-    public void OnEnterState()
-    {
-        
-    }
+    public void OnEnterState() { }
+
     public void OnExitState() { }
-    public void OnUpdate(){}
+    public void OnUpdate() { }
     public void OnFixedUpdate() { }
 }

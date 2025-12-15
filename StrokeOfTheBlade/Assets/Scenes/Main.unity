@@ -204,16 +204,19 @@ PrefabInstance:
       propertyPath: controllerNode
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6968447139146395413, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6968447139146395413, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
---- !u!4 &86988069 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 782544016924346175, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
-  m_PrefabInstance: {fileID: 86988068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &202645493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -453,63 +456,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &496010378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1838601908278359220, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
---- !u!1 &542236730
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 542236732}
-  - component: {fileID: 542236731}
-  m_Layer: 0
-  m_Name: KatanaManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &542236731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542236730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127e935771bab08449ff02f86ec20318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::katanaManager
-  katana: {fileID: 1607670147}
-  sheath: {fileID: 962528732}
---- !u!4 &542236732
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542236730}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.80271, y: 0, z: 0.02482}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &606374389
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,17 +622,6 @@ Transform:
   - {fileID: 1228085141}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &702050614 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8311459879124726820, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
 --- !u!1 &806442690
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24daae2bf21ed314ba73c46b9c8126ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  katanaManager: {fileID: 542236731}
+  katanaManager: {fileID: 1938309078}
 --- !u!4 &806442692
 Transform:
   m_ObjectHideFlags: 0
@@ -792,6 +727,7 @@ GameObject:
   - component: {fileID: 962528734}
   - component: {fileID: 962528733}
   - component: {fileID: 962528732}
+  - component: {fileID: 962528735}
   m_Layer: 0
   m_Name: Sheath
   m_TagString: Untagged
@@ -816,10 +752,8 @@ MonoBehaviour:
   positionLerp: 30
   rotationSmoothFactor: 0.2
   maxAngularSpeed: 40
-  collidersCheck: {fileID: 702050614}
-  mouthCheck: {fileID: 496010378}
-  endCheck: {fileID: 1138947171}
-  pointsParent: {fileID: 1884991319}
+  mouthCheck: {fileID: 1081158922}
+  endCheck: {fileID: 1451550952}
 --- !u!54 &962528733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -855,14 +789,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962528731}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.912, z: 0.79}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 1.532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 83417800}
+  - {fileID: 1607670149}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &962528735
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962528731}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7160991638d93e48a921544375cad0a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1042859460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1067,17 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1081158922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1838601908278359220, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
+  m_PrefabInstance: {fileID: 1138947170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
 --- !u!1001 &1138947170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1196,17 +1164,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
---- !u!114 &1138947171 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 150134526913433961, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
 --- !u!1 &1228085140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,37 +1299,17 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
---- !u!1 &1340445059
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!114 &1451550952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 150134526913433961, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
+  m_PrefabInstance: {fileID: 1138947170}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1340445060}
-  m_Layer: 0
-  m_Name: KatanaAxis
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1340445060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340445059}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1607670149}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
 --- !u!1 &1607670146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1345,6 @@ MonoBehaviour:
   positionLerp: 30
   rotationSmoothFactor: 0.2
   maxAngularSpeed: 40
-  tip: {fileID: 86988069}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1432,7 +1368,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1445,19 +1381,60 @@ Transform:
   m_GameObject: {fileID: 1607670146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 1.532}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 212707878}
-  - {fileID: 1340445060}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 962528734}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
---- !u!4 &1884991319 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 788559212773586384, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
+--- !u!1 &1938309075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938309076}
+  - component: {fileID: 1938309078}
+  m_Layer: 0
+  m_Name: KatanaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1938309076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938309075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 1.532}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1938309078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938309075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127e935771bab08449ff02f86ec20318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::katanaManager
+  katana: {fileID: 1607670147}
+  sheath: {fileID: 962528732}
+  animator: {fileID: 0}
 --- !u!1 &2080417329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1585,5 @@ SceneRoots:
   - {fileID: 656760392}
   - {fileID: 202645493}
   - {fileID: 962528734}
-  - {fileID: 1607670149}
-  - {fileID: 542236732}
+  - {fileID: 1938309076}
   - {fileID: 806442692}

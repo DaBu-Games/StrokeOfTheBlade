@@ -6,9 +6,11 @@ public class KatanaManager : MonoBehaviour
 {
     [SerializeField] private Katana katana;
     [SerializeField] private Sheath sheath;
+    [SerializeField] private Animator animator;
     
     public Katana Katana => katana;
     public Sheath Sheath => sheath;
+    public Animator Animator => animator;
     
     private void OnEnable()
     {
@@ -35,6 +37,4 @@ public class KatanaManager : MonoBehaviour
     public bool IsTipNearMouth() => sheath.MouthCheck.IsTagInside;
     
     public bool IsTipNearEnd() => sheath.EndCheck.IsTagInside;
-
-    public bool IsSheating() => Sheath.CollidersCheck.IsTagInside;
 }

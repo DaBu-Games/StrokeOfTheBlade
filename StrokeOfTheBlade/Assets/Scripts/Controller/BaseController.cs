@@ -21,16 +21,16 @@ public class BaseController : MonoBehaviour
     private Vector3 _handPos;
     private Quaternion _handRot;
     
-    protected Rigidbody Rb;
+    private Rigidbody _rb;
     
     private void Awake()
     {
-        Rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         
-        Rb.isKinematic = false;
-        Rb.useGravity = false;
-        Rb.interpolation = RigidbodyInterpolation.Interpolate;
-        Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        _rb.isKinematic = false;
+        _rb.useGravity = false;
+        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
         OnAwake();
         RefreshDevice();
@@ -56,6 +56,8 @@ public class BaseController : MonoBehaviour
     public void FollowController(bool follow) => followController = follow;
     
     public Vector3 HandPosition => _handPos;
+
+    public Rigidbody Rb => _rb;
     
     public Quaternion HandRotation => _handRot;
 
@@ -80,15 +82,15 @@ public class BaseController : MonoBehaviour
     
     private void FollowPosition(Vector3 targetPos)
     {
-        Vector3 delta = targetPos - Rb.position;
+        Vector3 delta = targetPos - _rb.position;
         Vector3 velocity = delta * positionLerp;
 
-        Rb.linearVelocity = velocity;
+        _rb.linearVelocity = velocity;
     }
     
     private void FollowRotation(Quaternion targetRot)
     {
-        Quaternion rotDelta = targetRot * Quaternion.Inverse(Rb.rotation);
+        Quaternion rotDelta = targetRot * Quaternion.Inverse(_rb.rotation);
         rotDelta.ToAngleAxis(out float angle, out Vector3 axis);
         
         if (float.IsNaN(axis.x) || float.IsInfinity(axis.x))
@@ -102,7 +104,7 @@ public class BaseController : MonoBehaviour
         
         angularVel = Vector3.ClampMagnitude(angularVel, maxAngularSpeed);
 
-        Rb.angularVelocity = angularVel;
+        _rb.angularVelocity = angularVel;
     }
         
 }

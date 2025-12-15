@@ -19,10 +19,11 @@ public class GameManager : MonoBehaviour
         _sheathing = new SheathingState(katanaManager);
         _sheathed = new SheathedState(katanaManager);
         
+
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => katanaManager.IsSheating() && katanaManager.IsTipNearMouth()
+            () => katanaManager.IsTipNearMouth()
         ));
         
         /*
