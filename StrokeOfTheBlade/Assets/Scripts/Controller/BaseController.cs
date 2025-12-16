@@ -25,8 +25,6 @@ public class BaseController : MonoBehaviour
     
     private void Awake()
     {
-        OnAwake();
-        
         _rb = GetComponent<Rigidbody>();
         
         _rb.isKinematic = false;
@@ -48,19 +46,14 @@ public class BaseController : MonoBehaviour
         FollowPosition(_handPos);
         FollowRotation(_handRot);
     }
-
-    protected virtual void OnAwake()
-    {
-        
-    }
     
     public void FollowController(bool follow) => followController = follow;
     
     public Vector3 HandPosition => _handPos;
-
     public Rigidbody Rb => _rb;
-    
     public Quaternion HandRotation => _handRot;
+    public XRNode ControllerNode => controllerNode;
+    
 
     public void SetDevice(XRNode node)
     {

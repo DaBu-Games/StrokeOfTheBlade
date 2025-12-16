@@ -1,15 +1,22 @@
 public class IdleState : IState
 {
-    private KatanaManager _katanaManager;
+    private KatanaManager _kM;
 
-    public IdleState(KatanaManager katanaManager)
+    public IdleState(KatanaManager kM)
     {
-        _katanaManager = katanaManager;
+        _kM = kM;
     }
 
     public void OnEnterState() { }
 
     public void OnExitState() { }
     public void OnUpdate() { }
-    public void OnFixedUpdate() { }
+
+    public void OnFixedUpdate()
+    {
+        if(!_kM.Katana.IsCharged)
+            return;
+        
+        
+    }
 }

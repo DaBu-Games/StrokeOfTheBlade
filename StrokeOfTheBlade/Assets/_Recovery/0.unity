@@ -657,7 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   kM: {fileID: 1938309078}
-  _inputAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &806442692
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,10 +1146,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2226864806868684561, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.72
-      objectReference: {fileID: 0}
     - target: {fileID: 2951204308234792115, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
       propertyPath: sheath
       value: 4
@@ -1349,9 +1344,8 @@ MonoBehaviour:
   followController: 1
   positionLerp: 30
   rotationSmoothFactor: 0.35
-  maxAngularSpeed: 20
+  maxAngularSpeed: 40
   _tip: {fileID: 22627703}
-  _isCharged: 0
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1388,7 +1382,7 @@ Transform:
   m_GameObject: {fileID: 1607670146}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 2.342}
+  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 2.354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

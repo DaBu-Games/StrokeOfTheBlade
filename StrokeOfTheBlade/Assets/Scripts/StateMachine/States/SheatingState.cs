@@ -4,26 +4,22 @@ using UnityEngine;
 public class SheathingState : IState
 {
     private KatanaManager _kM;
-    private Rigidbody _kRb;
-    private Rigidbody _sRb;
     private Animation _animation;
     private AnimationClip _sheathClip;
     
     [Range(0f, 1f)]
     private float _sheathAmount = 0f;
+    private Vector3 _prevBladePos;
 
     [Header("Tuning")]
     private float _minDistance = 0.15f;
     private float _maxDistance;
     private float _slideSpeedThreshold = 0.4f;
     private float _vibrateAmplitude = 0.15f;
-    private float _vibrateDuration = 0.05f;
 
     public SheathingState(KatanaManager kM)
     {
         _kM = kM;
-        _kRb = _kM.Katana.Rb;
-        _sRb = _kM.Sheath.Rb;
         
         _animation = _kM.Sheath.Animation;
         _sheathClip = _animation.GetClip("sheathing");
@@ -32,20 +28,30 @@ public class SheathingState : IState
 
     public void OnEnterState()
     {
-        _kM.Katana.FollowController(false);
-        _kM.Katana.transform.SetParent(_kM.Sheath.transform, true);
+        // only do enter if the katana enters the sheath
+        if (!_kM.IsTipInEnd())
+        {
+            _kM.Katana.FollowController(false);
+            _kM.Katana.transform.SetParent(_kM.Sheath.transform, true);
         
-        _animation[_sheathClip.name].speed = 0f;
-        _animation.Play(_sheathClip.name);
+            _animation[_sheathClip.name].speed = 0f;
+            _animation.Play(_sheathClip.name);
         
-        SetSheathAmount();
+            _prevBladePos = _kM.Katana.transform.position;
+        
+            SetSheathAmount();
+        }
     }
 
     public void OnExitState()
     {
-        _animation.Stop();
-        _kM.Katana.transform.SetParent(null, false);
-        _kM.Katana.FollowController(true);
+        // only do exit if the katana exits the sheath
+        if (!IsCloseToSheath())
+        {
+            _animation.Stop();
+            _kM.Katana.transform.SetParent(null, false);
+            _kM.Katana.FollowController(true);
+        }
     }
 
     public void OnUpdate()
@@ -73,11 +79,14 @@ public class SheathingState : IState
 
     private void ApllyBladeVibration()
     {
-        float speed = _kRb.linearVelocity.magnitude + _sRb.linearVelocity.magnitude;
+        Vector3 currentPos = _kM.Katana.transform.position;
+        float speed = (currentPos - _prevBladePos).magnitude / Time.fixedDeltaTime;
+    
+        _prevBladePos = currentPos;
 
         if (speed > _slideSpeedThreshold)
         {
-            _kM.Katana.Vibrate(_vibrateAmplitude, Time.fixedDeltaTime); 
+            _kM.Katana.Vibrate(_vibrateAmplitude, Time.fixedDeltaTime);
         }
     }
 
