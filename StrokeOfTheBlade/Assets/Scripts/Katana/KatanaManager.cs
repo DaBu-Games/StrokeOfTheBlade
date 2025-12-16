@@ -6,11 +6,10 @@ public class KatanaManager : MonoBehaviour
 {
     [SerializeField] private Katana katana;
     [SerializeField] private Sheath sheath;
-    [SerializeField] private Animator animator;
+    //private float _maxAngle = 40f;
     
     public Katana Katana => katana;
     public Sheath Sheath => sheath;
-    public Animator Animator => animator;
     
     private void OnEnable()
     {
@@ -34,9 +33,21 @@ public class KatanaManager : MonoBehaviour
         sheath.RefreshDevice();
     }
 
-    public bool IsTipNearMouth() => sheath.MouthCheck.IsTagInside;
+    public bool IsTipInMouth() => sheath.MouthCheck.IsTagInside;
     
-    public bool IsTipNearEnd() => sheath.EndCheck.IsTagInside;
+    public bool IsTipInEnd() => sheath.EndCheck.IsTagInside;
     
-    public bool IsSheathing() => sheath.ColliderCheck.IsTagInside;
+    /*
+    public bool AreControllersAligned()
+    {
+        Vector3 axis = Vector3.forward;
+
+        float angle = Vector3.SignedAngle(
+            Katana.HandRotation * Vector3.up,
+            Sheath.HandRotation * Vector3.up,
+            axis
+        );
+
+        return Mathf.Abs(angle) <= _maxAngle;
+    }*/
 }

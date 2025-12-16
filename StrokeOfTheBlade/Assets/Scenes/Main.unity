@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &22627703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 782544016924346175, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+  m_PrefabInstance: {fileID: 86988068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &83417800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 493342, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
@@ -651,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24daae2bf21ed314ba73c46b9c8126ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  katanaManager: {fileID: 1938309078}
+  kM: {fileID: 1938309078}
 --- !u!4 &806442692
 Transform:
   m_ObjectHideFlags: 0
@@ -661,7 +666,7 @@ Transform:
   m_GameObject: {fileID: 806442690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.35882, y: 0.25, z: 0.32029}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -749,10 +754,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sheath
   controllerNode: 4
   followController: 1
+  positionOffset: 1
   positionLerp: 30
-  rotationSmoothFactor: 0.2
+  rotationSmoothFactor: 0.35
   maxAngularSpeed: 40
-  colliderCheck: {fileID: 1637571296}
   mouthCheck: {fileID: 1081158922}
   endCheck: {fileID: 1451550952}
   _animation: {fileID: 962528735}
@@ -1338,9 +1343,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Katana
   controllerNode: 5
   followController: 1
+  positionOffset: 0
   positionLerp: 30
-  rotationSmoothFactor: 0.2
+  rotationSmoothFactor: 0.35
   maxAngularSpeed: 40
+  _tip: {fileID: 22627703}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1384,17 +1391,6 @@ Transform:
   - {fileID: 212707878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
---- !u!114 &1637571296 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8311459879124726820, guid: 40e4dc8f3ffe9054d8c81953f54b9ae6, type: 3}
-  m_PrefabInstance: {fileID: 1138947170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2014c073a8244bbf82852f98af167faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerColliderCheck
 --- !u!1 &1938309075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,7 +1417,7 @@ Transform:
   m_GameObject: {fileID: 1938309075}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 1.532}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1441,7 +1437,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::katanaManager
   katana: {fileID: 1607670147}
   sheath: {fileID: 962528732}
-  animator: {fileID: 0}
 --- !u!1 &2080417329
 GameObject:
   m_ObjectHideFlags: 0

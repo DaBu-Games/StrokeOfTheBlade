@@ -15,8 +15,8 @@ public class SheathingState : IState
     [Header("Tuning")]
     private float _minDistance = 0.15f;
     private float _maxDistance;
-    private float _slideSpeedThreshold = 0.15f;
-    private float _vibrateAmplitude = 0.25f;
+    private float _slideSpeedThreshold = 0.4f;
+    private float _vibrateAmplitude = 0.15f;
     private float _vibrateDuration = 0.05f;
 
     public SheathingState(KatanaManager kM)
@@ -27,6 +27,7 @@ public class SheathingState : IState
         
         _animation = _kM.Sheath.Animation;
         _sheathClip = _animation.GetClip("sheathing");
+        _maxDistance = Vector3.Distance(_kM.Katana.transform.position, _kM.Katana.Tip.position);
     }
 
     public void OnEnterState()
@@ -37,19 +38,11 @@ public class SheathingState : IState
         _animation[_sheathClip.name].speed = 0f;
         _animation.Play(_sheathClip.name);
         
-        _maxDistance = Vector3.Distance(_kM.Katana.HandPosition, _kM.Sheath.HandPosition);
-        
         SetSheathAmount();
     }
 
     public void OnExitState()
     {
-        if (!_kM.IsTipNearMouth())
-        {
-            _kM.Katana.Vibrate(1f, _vibrateDuration);
-            _kM.Sheath.Vibrate(1f, _vibrateDuration);
-        }
-        
         _animation.Stop();
         _kM.Katana.transform.SetParent(null, false);
         _kM.Katana.FollowController(true);
@@ -84,11 +77,11 @@ public class SheathingState : IState
 
         if (speed > _slideSpeedThreshold)
         {
-            _kM.Katana.Vibrate(_vibrateAmplitude, 0.05f); 
+            _kM.Katana.Vibrate(_vibrateAmplitude, Time.fixedDeltaTime); 
         }
     }
 
-    public bool IsSheathing()
+    public bool IsCloseToSheath()
     {
         return Vector3.Distance(_kM.Katana.HandPosition, _kM.Sheath.HandPosition) < _maxDistance;
     }

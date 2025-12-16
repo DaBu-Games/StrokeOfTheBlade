@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private KatanaManager katanaManager;
+    [SerializeField] private KatanaManager kM;
     
     private StateMachine _sm;
     
@@ -15,27 +16,27 @@ public class GameManager : MonoBehaviour
     {
         _sm = new StateMachine();
         
-        _idle = new IdleState(katanaManager);
-        _sheathing = new SheathingState(katanaManager);
-        _sheathed = new SheathedState(katanaManager);
+        _idle = new IdleState(kM);
+        _sheathing = new SheathingState(kM);
+        _sheathed = new SheathedState(kM);
         
 
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => katanaManager.IsTipNearMouth()
+            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth()
         ));
         
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
-            () => !_sheathing.IsSheathing()
+            () => !_sheathing.IsCloseToSheath()
         ));
         
         _sm.AddTransition(new Transition(
             _sheathed,
             _sheathed,
-            () => katanaManager.IsTipNearEnd()
+            () => kM.IsTipInEnd()
         ));
         
         _sm.SwitchState(_idle);
