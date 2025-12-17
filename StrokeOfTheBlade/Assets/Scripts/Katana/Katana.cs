@@ -4,6 +4,7 @@ using UnityEngine.XR;
 
 public class Katana : BaseController
 {
+    [Header("katana value's")]
     [SerializeField] private Transform _tip;
     [SerializeField] private bool _isCharged;
     

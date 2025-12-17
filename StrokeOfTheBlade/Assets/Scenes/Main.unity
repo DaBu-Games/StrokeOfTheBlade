@@ -1351,7 +1351,7 @@ MonoBehaviour:
   rotationSmoothFactor: 0.35
   maxAngularSpeed: 20
   _tip: {fileID: 22627703}
-  _isCharged: 0
+  _isCharged: 1
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0

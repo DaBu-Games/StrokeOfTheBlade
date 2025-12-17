@@ -29,7 +29,7 @@ public class SheathingState : IState
     public void OnEnterState()
     {
         // only do enter if the katana enters the sheath
-        if (!_kM.IsTipInEnd())
+        if (!_kM.IsTipInEnd)
         {
             _kM.Katana.FollowController(false);
             _kM.Katana.transform.SetParent(_kM.Sheath.transform, true);

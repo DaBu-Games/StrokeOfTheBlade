@@ -6,10 +6,10 @@ using UnityEngine.XR;
 
 public class Sheath : BaseController
 {
-    [FormerlySerializedAs("_colliders")]
     [Header("Box colliders")] 
     [SerializeField] private OnTriggerColliderCheck mouthCheck;
     [SerializeField] private OnTriggerColliderCheck endCheck;
+    [Header("Animation")] 
     [SerializeField] private Animation _animation;
     
     public OnTriggerColliderCheck MouthCheck => mouthCheck;
