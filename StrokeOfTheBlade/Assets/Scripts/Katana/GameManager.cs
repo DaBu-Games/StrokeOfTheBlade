@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private IdleState _idle;
     private SheathingState _sheathing;
     private SheathedState _sheathed;
-    private ChargedState _charged;
+    private SlashingState _slashing;
     
     void Start()
     {
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         _idle = new IdleState(kM);
         _sheathing = new SheathingState(kM);
         _sheathed = new SheathedState(kM, _sheathing, _inputAsset);
-        _charged = new ChargedState(kM);
+        _slashing = new SlashingState(kM);
 
         // idle transition
         _sm.AddTransition(new Transition(
@@ -30,13 +30,13 @@ public class GameManager : MonoBehaviour
             () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth
         ));
         
-        // sheathing transitons
         _sm.AddTransition(new Transition(
-            _sheathing,
-            _charged,
-            () => !_sheathing.IsCloseToSheath() && kM.Katana.IsCharged
+            _idle,
+            _slashing,
+            () => kM.Katana.IsCharged && _slashing.IsMovingForward() && _slashing.IsAboveSpeed()
         ));
         
+        // sheathing transitons
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
@@ -56,20 +56,14 @@ public class GameManager : MonoBehaviour
             () => !kM.IsTipInEnd
         ));
         
-        // charged transitions
+        //slashing transition
         _sm.AddTransition(new Transition(
-            _charged,
-            _sheathing,
-            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth
-        ));
-        
-        _sm.AddTransition(new Transition(
-            _charged,
+            _slashing,
             _idle,
-            () => !kM.Katana.IsCharged
+            () => !kM.Katana.IsCharged || !_slashing.IsAboveSpeed()
         ));
         
-        _sm.SwitchState(_charged);
+        _sm.SwitchState(_idle);
     }
     
     void Update()
@@ -81,31 +75,4 @@ public class GameManager : MonoBehaviour
     {
         _sm.OnFixedUpdate();
     }
-    
-    /*
-    private void OnDrawGizmos()
-    {
-        if (_charged == null)
-            return;
-
-        var path = _charged.PathPositions;
-        if (path == null || path.Count < 2)
-            return;
-
-        Gizmos.color = _charged.IsSlashingNow ? Color.cyan : Color.blue;
-
-        float duration = _charged.IsSlashingNow ? 5f : 0.04f;
-
-        for (int i = 1; i < path.Count; i++)
-            Gizmos.DrawLine(path[i - 1], path[i]);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(path[0], duration);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(path[path.Count / 2], duration);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(path[^1], duration);
-    }*/
 }

@@ -35,7 +35,7 @@ public class BaseController : MonoBehaviour
         RefreshDevice();
     }
     
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (!_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out _handPos) ||
             !_controllerDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out _handRot))
