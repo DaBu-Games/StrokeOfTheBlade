@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class ElementalProjectile : MonoBehaviour
 {
-    [Header("Speed → Size")]
-    [SerializeField] private float _minWidth = 0.05f;
-    [SerializeField] private float _maxWidth = 0.35f;
-    [SerializeField] private float _minSpeed = 2f;
-    [SerializeField] private float _maxSpeed = 8f;
-
     [Header("Wave Shape")]
+    [SerializeField] private float _radius = 10f;
     [SerializeField] private int _radialSegments = 8;
     [SerializeField] private float _arcDegrees = 140f;       // How wide the slash is
     [SerializeField] private float _forwardStretch = 1.4f;   // Length forward
@@ -22,17 +17,30 @@ public class ElementalProjectile : MonoBehaviour
     [SerializeField] private float _pulseFrequency = 0.5f;
     [SerializeField] private float _twistStrength = 0.1f;
     
+    [Header("Movement")]
+    [SerializeField] private float _startDelay = 200f;
+    [SerializeField] private float _targetSpeed = 40f;
+    [SerializeField] private float _minSlashSpeed = 2f;
+    [SerializeField] private float _maxSlashSpeed = 40f;
+    [SerializeField] private float _minDuraction = 0.2f;
+    [SerializeField] private float _maxDuraction = 2f;
+    
     [Header("References")]
     [SerializeField] private MeshFilter _meshFilter;
     
     private Mesh _mesh;
     private IElement _element;
-    private float _speed;
+    private float _accelerationTime = 0f;
+    private float _currentSpeed = 0f;
+    private float _elapsedSinceSpawn = 0f;
+    private bool _startedMoving = false;
 
     public void Initialize(IElement element, float speed, List<Vector3> points)
     {
         _element = element;
-        _speed = speed;
+        _accelerationTime = GetDurationWithSpeed(speed);
+        
+        Debug.Log("acceleration time: " + _accelerationTime);
         
         List<Vector3> localPoints = new List<Vector3>(points.Count);
         foreach (Vector3 p in points)
@@ -44,18 +52,41 @@ public class ElementalProjectile : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.forward * (_speed * Time.deltaTime);
+        _elapsedSinceSpawn += Time.deltaTime;
+        
+        if (!_startedMoving)
+        {
+            if (_elapsedSinceSpawn >= _startDelay / 1000f)
+            {
+                _startedMoving = true;
+                _elapsedSinceSpawn = 0f;
+            }
+            else
+                return;
+        }
+        
+        if (_currentSpeed < _targetSpeed)
+        {
+            _currentSpeed += (_targetSpeed / _accelerationTime) * Time.deltaTime;
+            
+            if (_currentSpeed > _targetSpeed)
+            {
+                _currentSpeed = _targetSpeed;
+            }
+        }
+
+        transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         _element.OnHit(other);
     }
-    
-    private float GetRadiusFromSpeed()
+
+    private float GetDurationWithSpeed(float speed)
     {
-        float t = Mathf.InverseLerp(_minSpeed, _maxSpeed, _speed);
-        return Mathf.Lerp(_minWidth, _maxWidth, t);
+        float t = Mathf.InverseLerp(_minSlashSpeed, _maxSlashSpeed, speed);
+        return Mathf.Lerp(_maxDuraction, _minDuraction, t);
     }
 
     private void BuildMesh(List<Vector3> points)
@@ -63,7 +94,7 @@ public class ElementalProjectile : MonoBehaviour
         _mesh = new Mesh();
         _mesh.name = "SlashWaveMesh";
 
-        float baseRadius = GetRadiusFromSpeed();
+        float baseRadius = _radius;
         int ringCount = points.Count;
         int vertsPerRing = Mathf.Max(2, _radialSegments);
 

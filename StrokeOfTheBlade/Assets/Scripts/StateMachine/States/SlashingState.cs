@@ -61,13 +61,9 @@ public class SlashingState : IState
     {
         if (_pathPositions.Count < _minPathCount) 
             return false;
-        
-        float slashLength = GetSlashLength();
-        if (slashLength < _minSlashLength)
-        {
-            Debug.Log("Slash length: " + slashLength);
+
+        if (GetSlashLength() < _minSlashLength)
             return false;
-        }
         
         return true;
     }
