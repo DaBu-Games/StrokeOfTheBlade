@@ -6,11 +6,17 @@ public class SlashingState : IState
     private KatanaManager _kM;
     private LineRenderer _lineRenderer;
 
+    // is slashing variables
     private float _minSlashSpeed = 2f;
     private float _minForwardDot = 0.6f;
+    private float _minPointDistance = 0.01f;
+    
+    //slash sanity check variables
+    private int _minPathCount = 5;
+    private float _minSlashLength = 1f;
     
     private List<Vector3> _pathPositions = new List<Vector3>();
-    private Quaternion _startRotation;
+    private float _startSlashTime;
 
     public SlashingState(KatanaManager kM)
     {
@@ -21,19 +27,77 @@ public class SlashingState : IState
     public void OnEnterState()
     {
         _lineRenderer.enabled = true;
-        _startRotation = _kM.Katana.HandRotation;
+        _startSlashTime = Time.time;
     }
 
     public void OnExitState()
     {
+        if (IsCleanSlash())
+        {
+            _kM.Katana.SpawnElement(GetAverageSlashSpeed(), _pathPositions);
+        }
+        
         _pathPositions.Clear();
+        _startSlashTime = Mathf.Epsilon;
+        _lineRenderer.positionCount = 0;
         _lineRenderer.enabled = false;
     }
     public void OnUpdate() { }
 
     public void OnFixedUpdate()
     {
+        Vector3 tipPos = _kM.Katana.Tip.position;
+
+        if (_pathPositions.Count == 0 || Vector3.Distance(_pathPositions[^1], tipPos) > _minPointDistance)
+        {
+            _pathPositions.Add(tipPos);
         
+            _lineRenderer.positionCount = _pathPositions.Count;
+            _lineRenderer.SetPosition(_pathPositions.Count - 1, tipPos);
+        }
+    }
+    
+    private bool IsCleanSlash()
+    {
+        if (_pathPositions.Count < _minPathCount) 
+            return false;
+        
+        float slashLength = GetSlashLength();
+        if (slashLength < _minSlashLength)
+        {
+            Debug.Log("Slash length: " + slashLength);
+            return false;
+        }
+        
+        return true;
+    }
+
+    private float GetAverageSlashSpeed()
+    {
+        if (_pathPositions.Count < _minPathCount)
+            return 0f;
+        
+        float time = Time.time - _startSlashTime;
+        
+        if(time <= Mathf.Epsilon)
+            return 0f;
+        
+        return GetSlashLength() / time;
+    }
+
+    private float GetSlashLength()
+    {
+        float length = 0f;
+
+        for (int i = 1; i < _pathPositions.Count; i++)
+        {
+            length += Vector3.Distance(
+                _pathPositions[i],
+                _pathPositions[i - 1]
+            );
+        }
+
+        return length;
     }
 
     public bool IsAboveSpeed()

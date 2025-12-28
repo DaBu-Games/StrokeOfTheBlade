@@ -21,7 +21,7 @@ public class SheathedState : IState
 
     public void OnEnterState()
     {
-        _kM.Katana.SetCharged(true);
+        _kM.Katana.SetElement(new FireElement());
         /*
         _leftTrigger.performed += ChangeDevice;
         _rightTrigger.performed += ChangeDevice;

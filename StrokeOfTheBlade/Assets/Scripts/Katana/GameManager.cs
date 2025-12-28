@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth
+            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth && !kM.Katana.HasElement()
         ));
         
         _sm.AddTransition(new Transition(
             _idle,
             _slashing,
-            () => kM.Katana.IsCharged && _slashing.IsMovingForward() && _slashing.IsAboveSpeed()
+            () => kM.Katana.HasElement() && _slashing.IsMovingForward() && _slashing.IsAboveSpeed()
         ));
         
         // sheathing transitons
@@ -60,7 +60,10 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _slashing,
             _idle,
-            () => !kM.Katana.IsCharged || !_slashing.IsAboveSpeed()
+            () => 
+                !kM.Katana.HasElement() || 
+                !_slashing.IsAboveSpeed() || 
+                !_slashing.IsMovingForward() 
         ));
         
         _sm.SwitchState(_idle);

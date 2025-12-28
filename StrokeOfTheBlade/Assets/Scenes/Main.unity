@@ -797,7 +797,7 @@ Transform:
   m_GameObject: {fileID: 962528731}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 1.532}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1352,8 +1352,8 @@ MonoBehaviour:
   rotationSmoothFactor: 0.35
   maxAngularSpeed: 20
   _tip: {fileID: 22627703}
-  _isCharged: 1
-  _lineRenderer: {fileID: 0}
+  _lineRenderer: {fileID: 1607670151}
+  _elementPrefab: {fileID: 8100781573060760678, guid: 693e16ffc78f76e43905655189e0c925, type: 3}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1389,14 +1389,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607670146}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.0033536674, y: 0.854, z: 2.342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 212707878}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &1607670151
 LineRenderer:
   serializedVersion: 2
@@ -1405,7 +1405,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607670146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1455,8 +1455,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.07531738
+        time: 0.0055732727
+        value: 0.18447876
         inSlope: 0
         outSlope: 0
         tangentMode: 0
