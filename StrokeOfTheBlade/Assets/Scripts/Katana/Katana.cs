@@ -27,9 +27,16 @@ public class Katana : BaseController
     public void SetElement(IElement element) => Element = element;
     public bool HasElement() => Element != null;
 
-    public void SpawnElement(float speed, List<Vector3> points)
+    public void SpawnElement(float speed, List<Vector3> points, Vector3 slashForward)
     {
-        GameObject slash = Instantiate(_elementPrefab, points[0], Quaternion.identity);
+        Quaternion rotation = Quaternion.LookRotation(
+            slashForward,
+            transform.forward
+        );
+        
+        Vector3 spawnPos = (points[0] + points[^1]) * 0.5f;
+        
+        GameObject slash = Instantiate(_elementPrefab, spawnPos, rotation);
         slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, points);
     }
 }
