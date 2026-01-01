@@ -16,7 +16,7 @@ public class SlashingState : IState
     private float _minSlashLength = 1f;
     
     private List<Vector3> _pathPositions = new List<Vector3>();
-    private List<Vector3> _bladeDirection = new List<Vector3>();
+    private Vector3 _bladeDirection = Vector3.zero;
     private float _startSlashTime;
 
     public SlashingState(KatanaManager kM)
@@ -35,11 +35,11 @@ public class SlashingState : IState
     {
         if (IsCleanSlash())
         {
-            _kM.Katana.SpawnElement(GetAverageSlashSpeed(), _pathPositions, _bladeDirection[_bladeDirection.Count/2]);
+            _kM.Katana.SpawnElement(GetAverageSlashSpeed(), _pathPositions, _bladeDirection / _pathPositions.Count);
         }
         
         _pathPositions.Clear();
-        _bladeDirection.Clear();
+        _bladeDirection = Vector3.zero;
         _startSlashTime = Mathf.Epsilon;
         _lineRenderer.positionCount = 0;
         _lineRenderer.enabled = false;
@@ -53,7 +53,10 @@ public class SlashingState : IState
         if (_pathPositions.Count == 0 || Vector3.Distance(_pathPositions[^1], tipPos) > _minPointDistance)
         {
             _pathPositions.Add(tipPos);
-            _bladeDirection.Add(_kM.Katana.transform.forward);
+            
+            Vector3 aimDir = _kM.Katana.transform.forward;
+            aimDir.y = 0f;
+            _bladeDirection += aimDir.normalized;
         
             _lineRenderer.positionCount = _pathPositions.Count;
             _lineRenderer.SetPosition(_pathPositions.Count - 1, tipPos);

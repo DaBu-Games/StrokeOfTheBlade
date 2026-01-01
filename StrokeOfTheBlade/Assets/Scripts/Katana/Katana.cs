@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Katana : BaseController
@@ -27,14 +28,12 @@ public class Katana : BaseController
     public void SetElement(IElement element) => Element = element;
     public bool HasElement() => Element != null;
 
-    public void SpawnElement(float speed, List<Vector3> points, Vector3 slashForward)
+    public void SpawnElement(float speed, List<Vector3> points, Vector3 direction)
     {
-        Quaternion rotation = Quaternion.LookRotation(
-            slashForward,
-            transform.forward
-        );
+        direction.y = 0f;
         
-        Vector3 spawnPos = (points[0] + points[^1]) * 0.5f;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        Vector3 spawnPos = points[points.Count / 2];
         
         GameObject slash = Instantiate(_elementPrefab, spawnPos, rotation);
         slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, points);
