@@ -28,14 +28,51 @@ public class Katana : BaseController
     public void SetElement(IElement element) => Element = element;
     public bool HasElement() => Element != null;
 
-    public void SpawnElement(float speed, List<Vector3> points, Vector3 direction)
+    public void SpawnElement(float speed, List<Vector3> points)
     {
-        direction.y = 0f;
+        int index = FindMaxDeviationIndex(points);
         
+        Vector3 t1 = (points[index] - points[0]).normalized;
+        Vector3 t2 = (points[^1] - points[index]).normalized;
+
+        Vector3 direction = (t1 - t2).normalized;
+        
+        direction.y = 0f;
+        direction.Normalize();
+
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        
         Vector3 spawnPos = points[points.Count / 2];
         
         GameObject slash = Instantiate(_elementPrefab, spawnPos, rotation);
         slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, points);
+    }
+    
+    private int FindMaxDeviationIndex(List<Vector3> points)
+    {
+        Vector3 start = points[0];
+        Vector3 end = points[^1];
+
+        Vector3 lineDir = (end - start).normalized;
+
+        float maxDist = 0f;
+        int bestIndex = points.Count / 2;
+
+        for (int i = 1; i < points.Count - 1; i++)
+        {
+            Vector3 toPoint = points[i] - start;
+            
+            Vector3 projected = Vector3.Project(toPoint, lineDir);
+            
+            float dist = (toPoint - projected).magnitude;
+
+            if (dist > maxDist)
+            {
+                maxDist = dist;
+                bestIndex = i;
+            }
+        }
+
+        return bestIndex;
     }
 }
