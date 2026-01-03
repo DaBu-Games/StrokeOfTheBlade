@@ -15,16 +15,16 @@ public class ElementalProjectile : MonoBehaviour
     [Header("References")]
     [SerializeField] private LineRenderer _lineRenderer;
     
-    private IElement _element;
+    private BaseElement _element;
     private float _accelerationTime = 0f;
     private float _currentSpeed = 0f;
     private float _elapsedSinceSpawn = 0f;
     private bool _startedMoving = false;
 
-    public void Initialize(IElement element, float speed, List<Vector3> points)
+    public void Initialize(BaseElement element, float speed, List<Vector3> points)
     {
         _element = element;
-        _lineRenderer.material = _element.data.material;
+        _lineRenderer.material = _element.Data.Material;
         _accelerationTime = GetDurationWithSpeed(speed);
         
         //Debug.Log("acceleration time: " + _accelerationTime);

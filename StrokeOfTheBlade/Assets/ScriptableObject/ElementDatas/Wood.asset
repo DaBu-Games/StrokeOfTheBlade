@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9ff3e013c2457993cca1b8d0aa8103, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::ElementalData
-  damage: 30
-  material: {fileID: 2100000, guid: 464b42de62caf214b96a465392378661, type: 2}
+  Damage: 30
+  Material: {fileID: 2100000, guid: 464b42de62caf214b96a465392378661, type: 2}
   Type: 3
+  WeaknessType: 0

@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   kM: {fileID: 1938309078}
-  eM: {fileID: 0}
+  eM: {fileID: 261456871}
 --- !u!4 &806442692
 Transform:
   m_ObjectHideFlags: 0

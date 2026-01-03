@@ -12,7 +12,7 @@ public class Katana : BaseController
     private Vector3 _lastTipPos;
     private Quaternion _lastRotation;
     public Vector3 TipVelocity { get; private set; }
-    public IElement Element { get; private set; }
+    public BaseElement Element { get; private set; }
     
     public Transform Tip => _tip;
     public LineRenderer LineRenderer => _lineRenderer;
@@ -25,8 +25,8 @@ public class Katana : BaseController
         _lastTipPos = Tip.position;
     }
 
-    public void SetElement(IElement element) => Element = element;
-    public IElement GetElement() => Element;
+    public void SetElement(BaseElement element) => Element = element;
+    public BaseElement GetElement() => Element;
     public bool HasElement() => Element != null;
 
     public void SpawnElement(float speed, List<Vector3> points)
