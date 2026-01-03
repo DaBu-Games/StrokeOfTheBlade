@@ -24,6 +24,7 @@ public class ElementalProjectile : MonoBehaviour
     public void Initialize(IElement element, float speed, List<Vector3> points)
     {
         _element = element;
+        _lineRenderer.material = _element.data.material;
         _accelerationTime = GetDurationWithSpeed(speed);
         
         //Debug.Log("acceleration time: " + _accelerationTime);

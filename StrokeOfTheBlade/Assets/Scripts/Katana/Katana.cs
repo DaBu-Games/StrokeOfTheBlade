@@ -26,6 +26,7 @@ public class Katana : BaseController
     }
 
     public void SetElement(IElement element) => Element = element;
+    public IElement GetElement() => Element;
     public bool HasElement() => Element != null;
 
     public void SpawnElement(float speed, List<Vector3> points)
@@ -46,6 +47,8 @@ public class Katana : BaseController
         
         GameObject slash = Instantiate(_elementPrefab, spawnPos, rotation);
         slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, points);
+
+        Element = null;
     }
     
     private int FindMaxDeviationIndex(List<Vector3> points)

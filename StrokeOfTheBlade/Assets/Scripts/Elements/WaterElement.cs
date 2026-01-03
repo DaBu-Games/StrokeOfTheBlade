@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class FireElement : IElement
+public class WaterElement : IElement
 {
     public ElementalData data { get; }
     
-    public FireElement(ElementalData elementalData) => data = elementalData;
+    public WaterElement(ElementalData elementalData) => data = elementalData;
 
     public void OnHit(Collider target)
     {

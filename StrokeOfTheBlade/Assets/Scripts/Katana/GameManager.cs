@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private KatanaManager kM;
-    [SerializeField] private InputActionAsset _inputAsset;
+    [SerializeField] private Elementmanager eM;
     
     private StateMachine _sm;
     
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         
         _idle = new IdleState(kM);
         _sheathing = new SheathingState(kM);
-        _sheathed = new SheathedState(kM, _sheathing, _inputAsset);
+        _sheathed = new SheathedState(kM, eM, _sheathing);
         _slashing = new SlashingState(kM);
 
         // idle transition

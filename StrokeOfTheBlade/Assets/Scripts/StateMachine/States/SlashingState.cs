@@ -28,6 +28,7 @@ public class SlashingState : IState
     {
         _lineRenderer.enabled = true;
         _startSlashTime = Time.time;
+        _lineRenderer.material = _kM.Katana.GetElement().data.material;
     }
 
     public void OnExitState()

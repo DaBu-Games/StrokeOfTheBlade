@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IElement
 {
-    int damage { get; }
+    ElementalData data { get; }
     void OnHit(Collider target);
     void OnDestory();
 }
