@@ -86,7 +86,7 @@ public class SheathingState : IState
 
         if (speed > _slideSpeedThreshold)
         {
-            _kM.Katana.Vibrate(_vibrateAmplitude, Time.fixedDeltaTime);
+            _kM.Sheath.Vibrate(_vibrateAmplitude, Time.fixedDeltaTime);
         }
     }
 

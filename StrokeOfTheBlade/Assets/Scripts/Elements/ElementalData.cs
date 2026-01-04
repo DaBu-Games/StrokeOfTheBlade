@@ -10,4 +10,6 @@ public class ElementalData : ScriptableObject
     public Material Material;
     public ElementType Type;
     public ElementType WeaknessType;
+    public AudioClip OnChange;
+    public AudioClip OnDestroy;
 }

@@ -16,3 +16,5 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: 920c1a13c53dc8c4e8372dea3ab0391f, type: 2}
   Type: 0
   WeaknessType: 1
+  OnChange: {fileID: 8300000, guid: 1d4f6fc81a15f2742a4b58ff5bfd0219, type: 3}
+  OnDestroy: {fileID: 0}

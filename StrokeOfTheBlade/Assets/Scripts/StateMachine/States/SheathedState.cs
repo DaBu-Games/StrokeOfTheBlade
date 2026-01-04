@@ -14,6 +14,7 @@ public class SheathedState : IState
     
     private ElementType _currentElement;
     private float _minRotationDif = 40;
+    private float _vibrateAmplitude = 0.5f;
 
     public SheathedState(KatanaManager kM, Elementmanager eM, SheathingState sheathingState)
     {
@@ -42,19 +43,31 @@ public class SheathedState : IState
         _sheathingState.OnFixedUpdate();
         
         float diffrence = GetRotationDiffrence();
-
-        // rotated right
+        
+        Debug.Log("angel diffrence:" + diffrence);
+        
+        // rotate right
         if (diffrence > _minRotationDif)
         {
-            _currentElement = _activateAction.IsPressed() ? ElementType.Fire : ElementType.Water; 
+            ChangeCurrentElement(_activateAction.IsPressed() ? ElementType.Fire : ElementType.Water); 
         }
-        // rototed left
+        // rototate left
         else if (diffrence < -_minRotationDif)
         {
-            _currentElement = _activateAction.IsPressed() ? ElementType.Wood : ElementType.Earth;
+            ChangeCurrentElement(_activateAction.IsPressed() ? ElementType.Wood : ElementType.Earth);
         }
     }
-    
+
+    private void ChangeCurrentElement(ElementType elementType)
+    {
+        if(_currentElement == elementType)
+            return;
+
+        _currentElement = elementType;
+        AudioClip clip = _eM.GetElement(_currentElement).Data.OnChange;
+        SoundManager.Instance.PlaySfx(clip);
+        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.5f);
+    }
     private float GetRotationDiffrence()
     {
         Quaternion current = _kM.Katana.HandRotation;
@@ -62,7 +75,7 @@ public class SheathedState : IState
         Quaternion delta = current * Quaternion.Inverse(_orginalRotation);
         
         delta.ToAngleAxis(out float angle, out Vector3 axis);
-
+        
         if (angle > 180f) angle -= 360f;
         
         float sign = Mathf.Sign(Vector3.Dot(axis, Vector3.up));
