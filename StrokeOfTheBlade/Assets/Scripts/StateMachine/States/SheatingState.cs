@@ -12,7 +12,7 @@ public class SheathingState : IState
     private Vector3 _prevBladePos;
 
     [Header("Tuning")]
-    private float _minDistance = 0.15f;
+    private float _minDistance = 0.2f;
     private float _maxDistance;
     private float _slideSpeedThreshold = 0.4f;
     private float _vibrateAmplitude = 0.15f;

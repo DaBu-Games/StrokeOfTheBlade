@@ -52,6 +52,7 @@ MonoBehaviour:
   _minDuration: 0.2
   _maxDuration: 2
   _lineRenderer: {fileID: 6875674989515208719}
+  _boxCollider: {fileID: 0}
 --- !u!120 &6875674989515208719
 LineRenderer:
   serializedVersion: 2
@@ -147,8 +148,8 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 1
-      m_ColorSpace: -1
+      m_Mode: 0
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 90

@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
         }
     }
     
-    public void PlaySfx(AudioClip clip, float volume = 20.0f)
+    public void PlaySfx(AudioClip clip, float volume = 1.0f)
     {
         if (clip is null) 
             return;

@@ -10,11 +10,10 @@ public class SheathedState : IState
     private SheathingState _sheathingState;
 
     private InputAction _activateAction;
-    private Quaternion _orginalRotation;
     
     private ElementType _currentElement;
     private float _minRotationDif = 40;
-    private float _vibrateAmplitude = 0.5f;
+    private float _vibrateAmplitude = 0.25f;
 
     public SheathedState(KatanaManager kM, Elementmanager eM, SheathingState sheathingState)
     {
@@ -27,13 +26,16 @@ public class SheathedState : IState
     public void OnEnterState()
     {
         _currentElement = ElementType.Null; 
-        _orginalRotation = _kM.Katana.HandRotation;
+        _kM.Katana.Vibrate(_vibrateAmplitude, 0.25f);
+        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
     }
 
     public void OnExitState()
     {
         if(_currentElement != ElementType.Null)
             _kM.Katana.SetElement(_eM.GetElement(_currentElement));
+        
+        _kM.Katana.Vibrate(_vibrateAmplitude, 0.5f);
     }
 
     public void OnUpdate() { }
@@ -42,7 +44,7 @@ public class SheathedState : IState
     {
         _sheathingState.OnFixedUpdate();
         
-        float diffrence = GetRotationDiffrence();
+        float diffrence =  GetRotationZDiffrence();
         
         Debug.Log("angel diffrence:" + diffrence);
         
@@ -62,24 +64,18 @@ public class SheathedState : IState
     {
         if(_currentElement == elementType)
             return;
-
+        
+        Debug.Log(elementType);
         _currentElement = elementType;
         AudioClip clip = _eM.GetElement(_currentElement).Data.OnChange;
         SoundManager.Instance.PlaySfx(clip);
-        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.5f);
+        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
     }
-    private float GetRotationDiffrence()
+    private float GetRotationZDiffrence()
     {
-        Quaternion current = _kM.Katana.HandRotation;
-        
-        Quaternion delta = current * Quaternion.Inverse(_orginalRotation);
-        
-        delta.ToAngleAxis(out float angle, out Vector3 axis);
-        
-        if (angle > 180f) angle -= 360f;
-        
-        float sign = Mathf.Sign(Vector3.Dot(axis, Vector3.up));
+        float startZ = _kM.Katana.transform.eulerAngles.z;
+        float currentZ = _kM.Katana.HandRotation.eulerAngles.z;
 
-        return angle * sign;
+        return Mathf.DeltaAngle(startZ, currentZ);
     }
 }
