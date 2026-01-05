@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d26ea45986837a74aa379b1bbd63ef77, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 700c825e9746c7849ad16c05f3bf5930, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -440,7 +440,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 656760392}
   - component: {fileID: 656760391}
   - component: {fileID: 656760390}
+  - component: {fileID: 656760393}
   m_Layer: 0
   m_Name: XR Origin (VR)
   m_TagString: Untagged
@@ -711,6 +712,24 @@ Transform:
   - {fileID: 1228085141}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!220 &656760393
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656760389}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: -1}
+  - {x: 1, y: -1, z: 1}
+  - {x: 1, y: -1, z: -1}
+  - {x: -1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: -1, z: 1}
+  - {x: -1, y: -1, z: -1}
+  m_Dering: 1
 --- !u!1 &806442690
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +931,7 @@ GameObject:
   - component: {fileID: 962528735}
   - component: {fileID: 962528733}
   - component: {fileID: 962528732}
+  - component: {fileID: 962528736}
   m_Layer: 0
   m_Name: Sheath
   m_TagString: Untagged
@@ -1000,6 +1020,24 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!220 &962528736
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962528731}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: -1}
+  - {x: 1, y: -1, z: 1}
+  - {x: 1, y: -1, z: -1}
+  - {x: -1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: -1, z: 1}
+  - {x: -1, y: -1, z: -1}
+  m_Dering: 1
 --- !u!1 &1042859460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1544,7 @@ GameObject:
   - component: {fileID: 1607670148}
   - component: {fileID: 1607670147}
   - component: {fileID: 1607670151}
+  - component: {fileID: 1607670152}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -1691,6 +1730,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!220 &1607670152
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607670146}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 0.2108593, y: 0.18121773, z: 0.8039996}
+  - {x: 0.19768277, y: -0.15396601, z: 0.8039996}
+  - {x: -0.23283306, y: 0.17069155, z: 0.8039996}
+  - {x: -0.23718633, y: -0.1398744, z: 0.8039996}
+  - {x: 0.19768277, y: -0.15396601, z: -0.41046262}
+  - {x: 0.2108593, y: 0.18121773, z: -0.41046262}
+  - {x: -0.23718633, y: -0.1398744, z: -0.41046262}
+  - {x: -0.23283306, y: 0.17069155, z: -0.41046262}
+  m_Dering: 1
 --- !u!1 &1938309075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,7 +1812,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!54 &2080417330
 Rigidbody:
