@@ -33,9 +33,9 @@ public class KatanaManager : MonoBehaviour
         sheath.RefreshDevice();
     }
 
-    public bool IsTipInMouth() => sheath.MouthCheck.IsTagInside;
+    public bool IsTipInMouth => sheath.MouthCheck.IsTagInside;
     
-    public bool IsTipInEnd() => sheath.EndCheck.IsTagInside;
+    public bool IsTipInEnd => sheath.EndCheck.IsTagInside;
     
     /*
     public bool AreControllersAligned()

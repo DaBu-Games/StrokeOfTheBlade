@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private KatanaManager kM;
-    [SerializeField] private InputActionAsset _inputAsset;
+    [SerializeField] private Elementmanager eM;
     
     private StateMachine _sm;
     
@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private IdleState _idle;
     private SheathingState _sheathing;
     private SheathedState _sheathed;
+    private SlashingState _slashing;
     
     void Start()
     {
@@ -19,14 +20,23 @@ public class GameManager : MonoBehaviour
         
         _idle = new IdleState(kM);
         _sheathing = new SheathingState(kM);
-        _sheathed = new SheathedState(kM, _sheathing, _inputAsset);
+        _sheathed = new SheathedState(kM, eM, _sheathing);
+        _slashing = new SlashingState(kM);
 
+        // idle transition
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth()
+            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth && !kM.Katana.HasElement()
         ));
         
+        _sm.AddTransition(new Transition(
+            _idle,
+            _slashing,
+            () => kM.Katana.HasElement() && _slashing.IsMovingForward() && _slashing.IsAboveSpeed()
+        ));
+        
+        // sheathing transitons
         _sm.AddTransition(new Transition(
             _sheathing,
             _idle,
@@ -36,13 +46,24 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _sheathing,
             _sheathed,
-            () => kM.IsTipInEnd()
+            () => kM.IsTipInEnd
         ));
         
+        // sheathed transition
         _sm.AddTransition(new Transition(
             _sheathed,
             _sheathing,
-            () => !kM.IsTipInEnd()
+            () => !kM.IsTipInEnd
+        ));
+        
+        //slashing transition
+        _sm.AddTransition(new Transition(
+            _slashing,
+            _idle,
+            () => 
+                !kM.Katana.HasElement() || 
+                !_slashing.IsAboveSpeed() || 
+                !_slashing.IsMovingForward() 
         ));
         
         _sm.SwitchState(_idle);

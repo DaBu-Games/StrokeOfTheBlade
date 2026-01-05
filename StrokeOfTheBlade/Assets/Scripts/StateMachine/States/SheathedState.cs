@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -5,47 +6,76 @@ using UnityEngine.XR;
 public class SheathedState : IState
 {
     private KatanaManager _kM;
+    private Elementmanager _eM;
     private SheathingState _sheathingState;
-    
-    private InputAction _leftTrigger;
-    private InputAction _rightTrigger;
 
-    public SheathedState(KatanaManager kM, SheathingState sheathingState, InputActionAsset inputAsset)
+    private InputAction _activateAction;
+    
+    private ElementType _currentElement;
+    private float _minRotationDif = 40;
+    private float _vibrateAmplitude = 0.25f;
+
+    public SheathedState(KatanaManager kM, Elementmanager eM, SheathingState sheathingState)
     {
         _kM = kM;
+        _eM = eM;
         _sheathingState = sheathingState;
-        
-        _leftTrigger = inputAsset.FindActionMap("XRI Left Interaction").FindAction("Select");
-        _rightTrigger = inputAsset.FindActionMap("XRI Right Interaction").FindAction("Select");
+        _activateAction = _kM.Katana.GetAction("activate");
     }
 
     public void OnEnterState()
     {
-        _kM.Katana.SetCharged(true);
-        /*
-        _leftTrigger.performed += ChangeDevice;
-        _rightTrigger.performed += ChangeDevice;
-        */
+        _currentElement = ElementType.Null; 
+        _kM.Katana.Vibrate(_vibrateAmplitude, 0.25f);
+        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
     }
 
-    public void OnExitState() { }
+    public void OnExitState()
+    {
+        if(_currentElement != ElementType.Null)
+            _kM.Katana.SetElement(_eM.GetElement(_currentElement));
+        
+        _kM.Katana.Vibrate(_vibrateAmplitude, 0.5f);
+    }
 
     public void OnUpdate() { }
 
     public void OnFixedUpdate()
     {
         _sheathingState.OnFixedUpdate();
+        
+        float diffrence =  GetRotationZDiffrence();
+        
+        Debug.Log("angel diffrence:" + diffrence);
+        
+        // rotate right
+        if (diffrence > _minRotationDif)
+        {
+            ChangeCurrentElement(_activateAction.IsPressed() ? ElementType.Fire : ElementType.Water); 
+        }
+        // rototate left
+        else if (diffrence < -_minRotationDif)
+        {
+            ChangeCurrentElement(_activateAction.IsPressed() ? ElementType.Wood : ElementType.Earth);
+        }
     }
-    
-    /*
-    private void ChangeDevice(InputAction.CallbackContext ctx)
+
+    private void ChangeCurrentElement(ElementType elementType)
     {
-        Debug.Log("Change device called");
+        if(_currentElement == elementType)
+            return;
         
-        XRNode katanaNode = _kM.Katana.ControllerNode;
-        XRNode sheathNode = _kM.Sheath.ControllerNode;
-        
-        _kM.Katana.SetDevice(sheathNode);
-        _kM.Sheath.SetDevice(katanaNode);
-    }*/
+        Debug.Log(elementType);
+        _currentElement = elementType;
+        AudioClip clip = _eM.GetElement(_currentElement).Data.OnChange;
+        SoundManager.Instance.PlaySfx(clip);
+        _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
+    }
+    private float GetRotationZDiffrence()
+    {
+        float startZ = _kM.Katana.transform.eulerAngles.z;
+        float currentZ = _kM.Katana.HandRotation.eulerAngles.z;
+
+        return Mathf.DeltaAngle(startZ, currentZ);
+    }
 }

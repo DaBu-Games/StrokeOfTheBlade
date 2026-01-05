@@ -7,16 +7,15 @@ public class IdleState : IState
         _kM = kM;
     }
 
-    public void OnEnterState() { }
+    public void OnEnterState()
+    {
+        
+    }
 
     public void OnExitState() { }
     public void OnUpdate() { }
 
     public void OnFixedUpdate()
     {
-        if(!_kM.Katana.IsCharged)
-            return;
-        
-        
     }
 }

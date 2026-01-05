@@ -1,11 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
+using CommonUsages = UnityEngine.XR.CommonUsages;
+using InputDevice = UnityEngine.XR.InputDevice;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BaseController : MonoBehaviour
 {
     [SerializeField] private XRNode controllerNode;
+    
+    [Header("Input Actions")]
+    [SerializeField] private List<InputActionEntry> inputActions = new List<InputActionEntry>();
+    
     private InputDevice _controllerDevice;
     
     [Header("Follow Settings")]
@@ -23,6 +31,8 @@ public class BaseController : MonoBehaviour
     
     private Rigidbody _rb;
     
+    private Dictionary<string, InputAction> _actionLookup;
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -32,10 +42,20 @@ public class BaseController : MonoBehaviour
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
         _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         
+        _actionLookup = new Dictionary<string, InputAction>();
+
+        foreach (var entry in inputActions)
+        {
+            if (entry.action != null)
+            {
+                _actionLookup[entry.key] = entry.action.action;
+            }
+        }
+        
         RefreshDevice();
     }
     
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (!_controllerDevice.TryGetFeatureValue(CommonUsages.devicePosition, out _handPos) ||
             !_controllerDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out _handRot))
@@ -53,7 +73,11 @@ public class BaseController : MonoBehaviour
     public Rigidbody Rb => _rb;
     public Quaternion HandRotation => _handRot;
     public XRNode ControllerNode => controllerNode;
-    
+
+    public InputAction GetAction(string actionName)
+    {
+        return _actionLookup[actionName];
+    }
 
     public void SetDevice(XRNode node)
     {
