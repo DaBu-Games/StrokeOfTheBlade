@@ -11,6 +11,8 @@ public class ElementalProjectile : MonoBehaviour
     [SerializeField] private float _maxSlashSpeed = 10f;
     [SerializeField] private float _minDuration = 0.2f;
     [SerializeField] private float _maxDuration = 2f;
+    [SerializeField] private float _forwardCurve = 1f;
+    [SerializeField] private int _segments = 5;
     
     [Header("References")]
     [SerializeField] private LineRenderer _lineRenderer;
@@ -26,8 +28,6 @@ public class ElementalProjectile : MonoBehaviour
         _element = element;
         _lineRenderer.material = _element.Data.Material;
         _accelerationTime = GetDurationWithSpeed(speed);
-        
-        //Debug.Log("acceleration time: " + _accelerationTime);
 
         SetPoints(points);
     }
@@ -75,14 +75,25 @@ public class ElementalProjectile : MonoBehaviour
     {
         _lineRenderer.useWorldSpace = false;
 
-        Vector3 first = transform.InverseTransformPoint(points[0]);
-        Vector3 middle = transform.InverseTransformPoint(points[1]);
-        Vector3 last  = transform.InverseTransformPoint(points[^1]);
+        Vector3 start = transform.InverseTransformPoint(points[0]);
+        Vector3 end  = transform.InverseTransformPoint(points[^1]);
         
+        Vector3 forwardOffset = transform.InverseTransformDirection(transform.forward) * _forwardCurve;
+        
+        _lineRenderer.positionCount = _segments;
 
-        _lineRenderer.positionCount = 3;
-        _lineRenderer.SetPosition(0, first);
-        _lineRenderer.SetPosition(1, middle);
-        _lineRenderer.SetPosition(2, last);
+        for (int i = 0; i < _segments; i++)
+        {
+            float t = i / (float)(_segments - 1);
+            Vector3 point = Vector3.Lerp(start, end, t);
+            
+            if (i != 0 && i != _segments - 1)
+            {
+                float curveFactor = Mathf.Sin(t * Mathf.PI);
+                point += forwardOffset * curveFactor;
+            }
+
+            _lineRenderer.SetPosition(i, point);
+        }
     }
 }

@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElementalProjectile
   _startDelay: 100
-  _targetSpeed: 0
+  _targetSpeed: 40
   _minSlashSpeed: 2
   _maxSlashSpeed: 10
   _minDuration: 0.2
   _maxDuration: 2
+  _forwardCurve: 1
+  _segments: 5
   _lineRenderer: {fileID: 6875674989515208719}
 --- !u!120 &6875674989515208719
 LineRenderer:

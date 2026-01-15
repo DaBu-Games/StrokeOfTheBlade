@@ -51,8 +51,7 @@ public class Katana : BaseController
 
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
-        slash.GetComponent<ElementalProjectile>()
-            .Initialize(Element, speed, newPoints);
+        slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, newPoints);
     }
     
     private Vector3 GetPhysicalMiddle(List<Vector3> points)
