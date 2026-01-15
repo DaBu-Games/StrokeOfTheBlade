@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         _sm.AddTransition(new Transition(
             _idle,
             _sheathing,
-            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth && !kM.Katana.HasElement()
+            () => _sheathing.IsCloseToSheath() && kM.IsTipInMouth
         ));
         
         _sm.AddTransition(new Transition(
