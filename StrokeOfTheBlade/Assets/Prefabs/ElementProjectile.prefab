@@ -52,7 +52,6 @@ MonoBehaviour:
   _minDuration: 0.2
   _maxDuration: 2
   _lineRenderer: {fileID: 6875674989515208719}
-  _boxCollider: {fileID: 0}
 --- !u!120 &6875674989515208719
 LineRenderer:
   serializedVersion: 2

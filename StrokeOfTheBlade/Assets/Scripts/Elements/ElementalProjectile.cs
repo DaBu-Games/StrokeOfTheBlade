@@ -76,27 +76,13 @@ public class ElementalProjectile : MonoBehaviour
         _lineRenderer.useWorldSpace = false;
 
         Vector3 first = transform.InverseTransformPoint(points[0]);
+        Vector3 middle = transform.InverseTransformPoint(points[points.Count/2]);
         Vector3 last  = transform.InverseTransformPoint(points[^1]);
-
-        Vector3 midpoint = (first + last) * 0.5f;
-        Vector3 travelDir = Vector3.forward;
-
-        float maxForward = float.MinValue;
-
-        foreach (Vector3 p in points)
-        {
-            Vector3 lp = transform.InverseTransformPoint(p);
-            float forwardAmount = Vector3.Dot(lp - midpoint, travelDir);
-
-            if (forwardAmount > maxForward)
-                maxForward = forwardAmount;
-        }
-
-        Vector3 curvedMid = midpoint + travelDir * maxForward;
+        
 
         _lineRenderer.positionCount = 3;
         _lineRenderer.SetPosition(0, first);
-        _lineRenderer.SetPosition(1, curvedMid);
+        _lineRenderer.SetPosition(1, middle);
         _lineRenderer.SetPosition(2, last);
     }
 }
