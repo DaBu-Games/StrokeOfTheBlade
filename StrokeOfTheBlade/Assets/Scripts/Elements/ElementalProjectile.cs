@@ -76,7 +76,7 @@ public class ElementalProjectile : MonoBehaviour
         _lineRenderer.useWorldSpace = false;
 
         Vector3 first = transform.InverseTransformPoint(points[0]);
-        Vector3 middle = transform.InverseTransformPoint(points[points.Count/2]);
+        Vector3 middle = transform.InverseTransformPoint(points[1]);
         Vector3 last  = transform.InverseTransformPoint(points[^1]);
         
 

@@ -34,39 +34,51 @@ public class Katana : BaseController
     {
         Vector3 start = points[0];
         Vector3 end = points[^1];
+        Vector3 middlePoint = GetPhysicalMiddle(points);
 
-        Vector3 farthestPoint = start;
-        float maxDistanceSqr = 0f;
         
-        Vector3 line = end - start;
-        float lineLengthSqr = line.sqrMagnitude;
-
-        foreach (Vector3 p in points)
-        {
-            // Project point onto the line
-            float t = Vector3.Dot(p - start, line) / lineLengthSqr;
-            t = Mathf.Clamp01(t);
-
-            Vector3 projection = start + line * t;
-            float distanceSqr = (p - projection).sqrMagnitude;
-
-            if (distanceSqr > maxDistanceSqr)
-            {
-                maxDistanceSqr = distanceSqr;
-                farthestPoint = p;
-            }
-        }
-        
-        Vector3 direction = (farthestPoint - _player.position).normalized;
+        Vector3 direction = (middlePoint - _player.position).normalized;
         direction.y = 0f;
         
         Debug.DrawLine(start, end, Color.red, 20f);
-        Debug.DrawLine(farthestPoint, _player.position, Color.blue, 20f);
-        Debug.DrawRay(farthestPoint, direction, Color.green, 20f);
+        Debug.DrawLine(middlePoint, _player.position, Color.blue, 20f);
+        Debug.DrawRay(middlePoint, direction, Color.green, 20f);
+        
+        List<Vector3> newPoints = new List<Vector3>();
+        newPoints.Add(start);
+        newPoints.Add(middlePoint);
+        newPoints.Add(end);
 
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        GameObject slash = Instantiate(_elementPrefab, farthestPoint, rotation);
+        GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
         slash.GetComponent<ElementalProjectile>()
-            .Initialize(Element, speed, points);
+            .Initialize(Element, speed, newPoints);
     }
+    
+    private Vector3 GetPhysicalMiddle(List<Vector3> points)
+    {
+        if (points == null || points.Count == 0)
+            return Vector3.zero;
+        
+        float totalLength = 0f;
+        for (int i = 1; i < points.Count; i++)
+            totalLength += Vector3.Distance(points[i - 1], points[i]);
+
+        float halfLength = totalLength / 2f;
+        
+        float accumulated = 0f;
+        for (int i = 1; i < points.Count; i++)
+        {
+            float segment = Vector3.Distance(points[i - 1], points[i]);
+            if (accumulated + segment >= halfLength)
+            {
+                float t = (halfLength - accumulated) / segment;
+                return Vector3.Lerp(points[i - 1], points[i], t);
+            }
+            accumulated += segment;
+        }
+        
+        return points[points.Count - 1];
+    }
+
 }

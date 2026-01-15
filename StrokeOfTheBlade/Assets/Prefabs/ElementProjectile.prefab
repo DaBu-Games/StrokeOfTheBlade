@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElementalProjectile
   _startDelay: 100
-  _targetSpeed: 40
+  _targetSpeed: 0
   _minSlashSpeed: 2
   _maxSlashSpeed: 10
   _minDuration: 0.2
