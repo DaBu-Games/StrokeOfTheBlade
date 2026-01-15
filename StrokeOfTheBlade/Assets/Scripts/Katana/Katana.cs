@@ -8,6 +8,7 @@ public class Katana : BaseController
     [SerializeField] private Transform _tip;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private GameObject _elementPrefab;
+    [SerializeField] private Transform _player;
     
     private Vector3 _lastTipPos;
     private Quaternion _lastRotation;
@@ -31,51 +32,52 @@ public class Katana : BaseController
 
     public void SpawnElement(float speed, List<Vector3> points)
     {
-        int index = FindMaxDeviationIndex(points);
-        
-        Vector3 t1 = (points[index] - points[0]).normalized;
-        Vector3 t2 = (points[^1] - points[index]).normalized;
-
-        Vector3 direction = (t1 - t2).normalized;
-        
-        direction.y = 0f;
-        direction.Normalize();
-
-        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        
-        Vector3 spawnPos = points[points.Count / 2];
-        
-        GameObject slash = Instantiate(_elementPrefab, spawnPos, rotation);
-        slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, points);
-
-        Element = null;
-    }
-    
-    private int FindMaxDeviationIndex(List<Vector3> points)
-    {
         Vector3 start = points[0];
         Vector3 end = points[^1];
+        Vector3 middlePoint = GetPhysicalMiddle(points);
 
-        Vector3 lineDir = (end - start).normalized;
+        
+        Vector3 direction = (middlePoint - _player.position).normalized;
+        direction.y = 0f;
+        
+        Debug.DrawLine(start, end, Color.red, 20f);
+        Debug.DrawLine(middlePoint, _player.position, Color.blue, 20f);
+        Debug.DrawRay(middlePoint, direction, Color.green, 20f);
+        
+        List<Vector3> newPoints = new List<Vector3>();
+        newPoints.Add(start);
+        newPoints.Add(middlePoint);
+        newPoints.Add(end);
 
-        float maxDist = 0f;
-        int bestIndex = points.Count / 2;
-
-        for (int i = 1; i < points.Count - 1; i++)
-        {
-            Vector3 toPoint = points[i] - start;
-            
-            Vector3 projected = Vector3.Project(toPoint, lineDir);
-            
-            float dist = (toPoint - projected).magnitude;
-
-            if (dist > maxDist)
-            {
-                maxDist = dist;
-                bestIndex = i;
-            }
-        }
-
-        return bestIndex;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
+        slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, newPoints);
     }
+    
+    private Vector3 GetPhysicalMiddle(List<Vector3> points)
+    {
+        if (points == null || points.Count == 0)
+            return Vector3.zero;
+        
+        float totalLength = 0f;
+        for (int i = 1; i < points.Count; i++)
+            totalLength += Vector3.Distance(points[i - 1], points[i]);
+
+        float halfLength = totalLength / 2f;
+        
+        float accumulated = 0f;
+        for (int i = 1; i < points.Count; i++)
+        {
+            float segment = Vector3.Distance(points[i - 1], points[i]);
+            if (accumulated + segment >= halfLength)
+            {
+                float t = (halfLength - accumulated) / segment;
+                return Vector3.Lerp(points[i - 1], points[i], t);
+            }
+            accumulated += segment;
+        }
+        
+        return points[points.Count - 1];
+    }
+
 }

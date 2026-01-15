@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &606374390
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1319257166
 Transform:
   m_ObjectHideFlags: 0
@@ -1577,6 +1577,7 @@ MonoBehaviour:
   _tip: {fileID: 22627703}
   _lineRenderer: {fileID: 1607670151}
   _elementPrefab: {fileID: 8100781573060760678, guid: 693e16ffc78f76e43905655189e0c925, type: 3}
+  _player: {fileID: 1042859461}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0

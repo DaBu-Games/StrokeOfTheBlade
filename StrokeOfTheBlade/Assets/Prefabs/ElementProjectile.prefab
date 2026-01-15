@@ -51,6 +51,8 @@ MonoBehaviour:
   _maxSlashSpeed: 10
   _minDuration: 0.2
   _maxDuration: 2
+  _forwardCurve: 1
+  _segments: 5
   _lineRenderer: {fileID: 6875674989515208719}
 --- !u!120 &6875674989515208719
 LineRenderer:
