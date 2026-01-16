@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c9ff3e013c2457993cca1b8d0aa8103, type: 3}
-  m_Name: Earth
+  m_Name: WoodEnemy
   m_EditorClassIdentifier: Assembly-CSharp::ElementalData
   Damage: 30
-  Material: {fileID: 2100000, guid: b05e785a3efd2e24a9592d0fb759a1ba, type: 2}
-  Type: 2
-  WeaknessType: 3
-  OnChange: {fileID: 8300000, guid: a5242a8a45c2dc5468255fdb57d9dbdb, type: 3}
+  Material: {fileID: 2100000, guid: 464b42de62caf214b96a465392378661, type: 2}
+  Type: 3
+  WeaknessType: 0
+  OnChange: {fileID: 8300000, guid: a5d619dc9e5eb7c47ab2064171e75382, type: 3}
   OnDestroy: {fileID: 0}
