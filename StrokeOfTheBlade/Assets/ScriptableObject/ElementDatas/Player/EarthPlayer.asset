@@ -18,3 +18,14 @@ MonoBehaviour:
   WeaknessType: 3
   OnChange: {fileID: 8300000, guid: a5242a8a45c2dc5468255fdb57d9dbdb, type: 3}
   OnDestroy: {fileID: 0}
+  CollisionLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  StartDelay: 100
+  TargetSpeed: 40
+  MinProjectileSpeed: 2
+  MaxProjectileSpeed: 10
+  MinDuration: 0.2
+  MaxDuration: 2
+  ForwardCurve: 1
+  LineSegments: 5

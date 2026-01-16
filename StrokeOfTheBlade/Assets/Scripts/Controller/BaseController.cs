@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.XR;
 using CommonUsages = UnityEngine.XR.CommonUsages;
 using InputDevice = UnityEngine.XR.InputDevice;

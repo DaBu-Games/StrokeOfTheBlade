@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public enum ElementType{Fire, Water, Earth, Wood, Null}
     
@@ -12,6 +12,7 @@ public class ElementalData : ScriptableObject
     public ElementType WeaknessType;
     public AudioClip OnChange;
     public AudioClip OnDestroy;
+    public LayerMask CollisionLayers;
     
     [Header("Movement")]
     public float StartDelay = 100f;

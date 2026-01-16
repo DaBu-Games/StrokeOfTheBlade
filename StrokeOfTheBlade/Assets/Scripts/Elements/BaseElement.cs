@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseElement
@@ -6,27 +7,30 @@ public class BaseElement
     
     public BaseElement(ElementalData elementalData) => Data = elementalData;
 
-    public void OnHit(Collider target)
+    public void OnHit(Collider target, GameObject ownProjectile)
     {
-        BaseElement element = target.GetComponent<BaseElement>();
+        if ((Data.CollisionLayers.value & (1 << target.gameObject.layer)) == 0)
+            return; 
+        
+        ElementalProjectile projectile = target.GetComponent<ElementalProjectile>();
 
-        if (element != null)
+        if (projectile != null)
         {
-            if (element.Data.Type == Data.WeaknessType)
+            BaseElement element = projectile.GetElement();
+            
+            if (Data.Type != element.Data.WeaknessType)
             {
-                OnDestroy();
+                Object.Destroy(ownProjectile);
             }
         }
         else
         {
             HealthBar healthBar = target.GetComponent<HealthBar>();
-            healthBar?.TakeDamage(Data.Damage);
-            OnDestroy();
+            if (healthBar != null)
+            {
+                healthBar.TakeDamage(Data.Damage);
+                Object.Destroy(ownProjectile);
+            }
         }
-    }
-
-    public void OnDestroy()
-    {
-        
     }
 }
