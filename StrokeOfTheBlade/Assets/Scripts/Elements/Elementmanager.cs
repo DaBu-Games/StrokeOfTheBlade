@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Elementmanager : MonoBehaviour
@@ -18,5 +19,10 @@ public class Elementmanager : MonoBehaviour
     public BaseElement GetElement(ElementType elementType)
     {
         return _elements[elementType];
+    }
+
+    public BaseElement GetRandomElement()
+    {
+        return _elements.ElementAt( Random.Range(0, _elements.Count) ).Value;
     }
 }
