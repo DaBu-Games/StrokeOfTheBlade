@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ElementalProjectile : MonoBehaviour
 {
@@ -50,10 +49,12 @@ public class ElementalProjectile : MonoBehaviour
 
         transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
     }
+    
+    public BaseElement GetElement() => _element;
 
     private void OnTriggerEnter(Collider other)
     {
-        _element.OnHit(other);
+        _element.OnHit(other, this.gameObject);
     }
 
     private float GetDurationWithSpeed(float speed)
@@ -70,21 +71,51 @@ public class ElementalProjectile : MonoBehaviour
         Vector3 end  = transform.InverseTransformPoint(points[^1]);
         
         Vector3 forwardOffset = transform.InverseTransformDirection(transform.forward) * _element.Data.ForwardCurve;
-        
-        _lineRenderer.positionCount = _element.Data.LineSegments;
 
-        for (int i = 0; i < _element.Data.LineSegments; i++)
+        int segments = _element.Data.LineSegments;
+        _lineRenderer.positionCount = segments;
+        
+        Vector3[] linePoints = new Vector3[segments];
+        for (int i = 0; i < segments; i++)
         {
-            float t = i / (float)(_element.Data.LineSegments - 1);
+            float t = i / (float)(segments - 1);
             Vector3 point = Vector3.Lerp(start, end, t);
             
-            if (i != 0 && i != _element.Data.LineSegments - 1)
+            if (i != 0 && i != segments - 1)
             {
                 float curveFactor = Mathf.Sin(t * Mathf.PI);
                 point += forwardOffset * curveFactor;
             }
-
-            _lineRenderer.SetPosition(i, point);
+            
+            linePoints[i] = point;
         }
+        
+        _lineRenderer.SetPositions(linePoints);
+        CreateBoxCollider(linePoints);
+    }
+    
+    private void CreateBoxCollider(Vector3[] points)
+    {
+        BoxCollider box = gameObject.AddComponent<BoxCollider>();
+        box.isTrigger = true;
+        
+        Vector3 min = points[0];
+        Vector3 max = points[0];
+
+        foreach (var p in points)
+        {
+            min = Vector3.Min(min, p);
+            max = Vector3.Max(max, p);
+        }
+
+        Vector3 size = max - min;
+        
+        float minThickness = _lineRenderer.startWidth;
+        if (size.y < minThickness) size.y = minThickness;
+        if (size.x < minThickness) size.x = minThickness; 
+        if (size.z < minThickness) size.z = minThickness;
+
+        box.center = (min + max) * 0.5f;
+        box.size = size;
     }
 }

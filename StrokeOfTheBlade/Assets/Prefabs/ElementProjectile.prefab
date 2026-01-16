@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 678425838176035816}
   - component: {fileID: 2239808244778816651}
   - component: {fileID: 6875674989515208719}
-  m_Layer: 0
+  - component: {fileID: 6958430620985511076}
+  m_Layer: 6
   m_Name: ElementProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,14 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0720d4d6aa514aea83f14194ae55b9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElementalProjectile
-  _startDelay: 100
-  _targetSpeed: 40
-  _minSlashSpeed: 2
-  _maxSlashSpeed: 10
-  _minDuration: 0.2
-  _maxDuration: 2
-  _forwardCurve: 1
-  _segments: 5
   _lineRenderer: {fileID: 6875674989515208719}
 --- !u!120 &6875674989515208719
 LineRenderer:
@@ -164,3 +157,30 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!54 &6958430620985511076
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100781573060760678}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
