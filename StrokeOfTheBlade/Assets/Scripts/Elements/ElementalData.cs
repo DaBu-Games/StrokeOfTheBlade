@@ -12,4 +12,14 @@ public class ElementalData : ScriptableObject
     public ElementType WeaknessType;
     public AudioClip OnChange;
     public AudioClip OnDestroy;
+    
+    [Header("Movement")]
+    public float StartDelay = 100f;
+    public float TargetSpeed = 40f;
+    public float MinProjectileSpeed = 2f;
+    public float MaxProjectileSpeed = 10f;
+    public float MinDuration = 0.2f;
+    public float MaxDuration = 2f;
+    public float ForwardCurve = 1f;
+    public int LineSegments = 5;
 }

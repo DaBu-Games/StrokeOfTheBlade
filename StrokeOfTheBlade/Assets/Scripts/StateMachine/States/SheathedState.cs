@@ -46,8 +46,6 @@ public class SheathedState : IState
         
         float diffrence =  GetRotationZDiffrence();
         
-        Debug.Log("angel diffrence:" + diffrence);
-        
         // rotate right
         if (diffrence > _minRotationDif)
         {
@@ -65,7 +63,6 @@ public class SheathedState : IState
         if(_currentElement == elementType)
             return;
         
-        Debug.Log(elementType);
         _currentElement = elementType;
         AudioClip clip = _eM.GetElement(_currentElement).Data.OnChange;
         SoundManager.Instance.PlaySfx(clip);

@@ -1,19 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ElementalProjectile : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float _startDelay = 100f;
-    [SerializeField] private float _targetSpeed = 40f;
-    [SerializeField] private float _minSlashSpeed = 2f;
-    [SerializeField] private float _maxSlashSpeed = 10f;
-    [SerializeField] private float _minDuration = 0.2f;
-    [SerializeField] private float _maxDuration = 2f;
-    [SerializeField] private float _forwardCurve = 1f;
-    [SerializeField] private int _segments = 5;
-    
     [Header("References")]
     [SerializeField] private LineRenderer _lineRenderer;
     
@@ -38,7 +29,7 @@ public class ElementalProjectile : MonoBehaviour
         
         if (!_startedMoving)
         {
-            if (_elapsedSinceSpawn >= _startDelay / 1000f)
+            if (_elapsedSinceSpawn >= _element.Data.StartDelay / 1000f)
             {
                 _startedMoving = true;
                 _elapsedSinceSpawn = 0f;
@@ -47,13 +38,13 @@ public class ElementalProjectile : MonoBehaviour
                 return;
         }
         
-        if (_currentSpeed < _targetSpeed)
+        if (_currentSpeed < _element.Data.TargetSpeed)
         {
-            _currentSpeed += (_targetSpeed / _accelerationTime) * Time.deltaTime;
+            _currentSpeed += (_element.Data.TargetSpeed / _accelerationTime) * Time.deltaTime;
             
-            if (_currentSpeed > _targetSpeed)
+            if (_currentSpeed > _element.Data.TargetSpeed)
             {
-                _currentSpeed = _targetSpeed;
+                _currentSpeed = _element.Data.TargetSpeed;
             }
         }
 
@@ -67,8 +58,8 @@ public class ElementalProjectile : MonoBehaviour
 
     private float GetDurationWithSpeed(float speed)
     {
-        float t = Mathf.InverseLerp(_minSlashSpeed, _maxSlashSpeed, speed);
-        return Mathf.Lerp(_maxDuration, _minDuration, t);
+        float t = Mathf.InverseLerp(_element.Data.MinProjectileSpeed, _element.Data.MaxProjectileSpeed, speed);
+        return Mathf.Lerp(_element.Data.MaxDuration, _element.Data.MinDuration, t);
     }
 
     private void SetPoints(List<Vector3> points)
@@ -78,16 +69,16 @@ public class ElementalProjectile : MonoBehaviour
         Vector3 start = transform.InverseTransformPoint(points[0]);
         Vector3 end  = transform.InverseTransformPoint(points[^1]);
         
-        Vector3 forwardOffset = transform.InverseTransformDirection(transform.forward) * _forwardCurve;
+        Vector3 forwardOffset = transform.InverseTransformDirection(transform.forward) * _element.Data.ForwardCurve;
         
-        _lineRenderer.positionCount = _segments;
+        _lineRenderer.positionCount = _element.Data.LineSegments;
 
-        for (int i = 0; i < _segments; i++)
+        for (int i = 0; i < _element.Data.LineSegments; i++)
         {
-            float t = i / (float)(_segments - 1);
+            float t = i / (float)(_element.Data.LineSegments - 1);
             Vector3 point = Vector3.Lerp(start, end, t);
             
-            if (i != 0 && i != _segments - 1)
+            if (i != 0 && i != _element.Data.LineSegments - 1)
             {
                 float curveFactor = Mathf.Sin(t * Mathf.PI);
                 point += forwardOffset * curveFactor;

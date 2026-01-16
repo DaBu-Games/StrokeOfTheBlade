@@ -12,14 +12,20 @@ public class BaseElement
 
         if (element != null)
         {
-            if (element.Data.Type == this.Data.WeaknessType)
+            if (element.Data.Type == Data.WeaknessType)
             {
-                OnDestory();
+                OnDestroy();
             }
+        }
+        else
+        {
+            HealthBar healthBar = target.GetComponent<HealthBar>();
+            healthBar?.TakeDamage(Data.Damage);
+            OnDestroy();
         }
     }
 
-    public void OnDestory()
+    public void OnDestroy()
     {
         
     }
