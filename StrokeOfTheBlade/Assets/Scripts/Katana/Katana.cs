@@ -9,6 +9,7 @@ public class Katana : BaseController
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private GameObject _elementPrefab;
     [SerializeField] private Transform _player;
+    [SerializeField] private ColliderDetection _colliderDetection;
     
     private Vector3 _lastTipPos;
     private Quaternion _lastRotation;
@@ -35,23 +36,25 @@ public class Katana : BaseController
         Vector3 start = points[0];
         Vector3 end = points[^1];
         Vector3 middlePoint = GetPhysicalMiddle(points);
-
         
         Vector3 direction = (middlePoint - _player.position).normalized;
         direction.y = 0f;
         
-        Debug.DrawLine(start, end, Color.red, 20f);
-        Debug.DrawLine(middlePoint, _player.position, Color.blue, 20f);
-        Debug.DrawRay(middlePoint, direction, Color.green, 20f);
+        //Debug.DrawLine(start, end, Color.red, 20f);
+        //Debug.DrawLine(middlePoint, _player.position, Color.blue, 20f);
+        //Debug.DrawRay(middlePoint, direction, Color.green, 20f);
         
         List<Vector3> newPoints = new List<Vector3>();
         newPoints.Add(start);
         newPoints.Add(middlePoint);
         newPoints.Add(end);
 
-        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        Vector3 target = _colliderDetection.GetClosestCollider(middlePoint, direction);
+        
         GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
-        slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, newPoints);
+        slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, newPoints, target);
     }
     
     private Vector3 GetPhysicalMiddle(List<Vector3> points)

@@ -2165,6 +2165,7 @@ GameObject:
   - component: {fileID: 1607670149}
   - component: {fileID: 1607670148}
   - component: {fileID: 1607670147}
+  - component: {fileID: 1607670153}
   - component: {fileID: 1607670151}
   - component: {fileID: 1607670152}
   m_Layer: 0
@@ -2200,6 +2201,7 @@ MonoBehaviour:
   _lineRenderer: {fileID: 1607670151}
   _elementPrefab: {fileID: 8100781573060760678, guid: 693e16ffc78f76e43905655189e0c925, type: 3}
   _player: {fileID: 1042859461}
+  _colliderDetection: {fileID: 1607670153}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2371,6 +2373,23 @@ LightProbeGroup:
   - {x: -0.23718633, y: -0.1398744, z: -0.41046262}
   - {x: -0.23283306, y: 0.17069155, z: -0.41046262}
   m_Dering: 1
+--- !u!114 &1607670153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607670146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa046e795a24e75be111ff51fc121c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderDetection
+  _targetingRange: 25
+  _targetingRadius: 7.5
+  _collisionLayers:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!1 &1616953625
 GameObject:
   m_ObjectHideFlags: 0

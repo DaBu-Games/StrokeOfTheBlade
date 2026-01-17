@@ -8,27 +8,46 @@ public class ElementalProjectile : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer;
     
     private BaseElement _element;
+    private readonly int _steps = 20;
+
+    private Vector3 _start;
+    private Vector3 _control;
+    private Vector3 _target;
+    
     private float _accelerationTime = 0f;
     private float _currentSpeed = 0f;
+    
     private float _elapsedSinceSpawn = 0f;
     private bool _startedMoving = false;
+    
+    private float _travelledDistance = 0f;
+    private float _curveLength = 0f;
 
-    public void Initialize(BaseElement element, float speed, List<Vector3> points)
+    public void Initialize(BaseElement element, float speed, List<Vector3> points, Vector3 target = default)
     {
         _element = element;
         _lineRenderer.material = _element.Data.Material;
         _accelerationTime = GetDurationWithSpeed(speed);
 
+        if (target != Vector3.zero)
+        {
+            _start = transform.position;
+            _target = target;
+            float distanceToTarget = Vector3.Distance(transform.position, _target);
+            _control = _start + (transform.forward * (distanceToTarget * 0.5f));
+            _curveLength = ApproximateCurveLength();
+        }
+        
         SetPoints(points);
     }
 
     void Update()
     {
-        _elapsedSinceSpawn += Time.deltaTime;
-        
         if (!_startedMoving)
         {
-            if (_elapsedSinceSpawn >= _element.Data.StartDelay / 1000f)
+            _elapsedSinceSpawn += Time.deltaTime;
+            
+            if (_elapsedSinceSpawn >= _element.Data.StartDelay)
             {
                 _startedMoving = true;
                 _elapsedSinceSpawn = 0f;
@@ -47,7 +66,55 @@ public class ElementalProjectile : MonoBehaviour
             }
         }
 
-        transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
+        if (_target != Vector3.zero)
+        {
+            _travelledDistance += _currentSpeed * Time.deltaTime;
+            float t = Mathf.Clamp01(_travelledDistance / _curveLength);
+
+            Vector3 currentPos = Evaluate(t);
+            Vector3 nextPos = Evaluate(Mathf.Min(t + 0.01f, 1f));
+
+            Vector3 direction = (nextPos - currentPos).normalized;
+
+            if (direction.sqrMagnitude > 0f)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+
+            transform.position = currentPos;
+
+            if (t >= 1f)
+            {
+                _target = Vector3.zero;
+            }
+        }
+        else
+        {
+            transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
+        }
+    }
+    
+    private Vector3 Evaluate(float t)
+    {
+        Vector3 ac = Vector3.Lerp(_start, _control, t);
+        Vector3 cb = Vector3.Lerp(_control, _target, t);
+        return Vector3.Lerp(ac, cb, t);
+    }
+    
+    private float ApproximateCurveLength()
+    {
+        float length = 0f;
+        Vector3 prev = Evaluate(0f);
+
+        for (int i = 1; i <= _steps; i++)
+        {
+            float t = i / (float)_steps;
+            Vector3 p = Evaluate(t);
+            length += Vector3.Distance(prev, p);
+            prev = p;
+        }
+
+        return length;
     }
     
     public BaseElement GetElement() => _element;

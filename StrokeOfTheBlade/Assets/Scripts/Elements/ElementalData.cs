@@ -15,7 +15,7 @@ public class ElementalData : ScriptableObject
     public LayerMask CollisionLayers;
     
     [Header("Movement")]
-    public float StartDelay = 100f;
+    public float StartDelay = 1f;
     public float TargetSpeed = 40f;
     public float MinProjectileSpeed = 2f;
     public float MaxProjectileSpeed = 10f;

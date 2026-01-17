@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour, Entity
         if (direction.sqrMagnitude < 0.01f)
             return Quaternion.identity;
         
-        return Quaternion.LookRotation(direction, Vector3.up);
+        return Quaternion.LookRotation(direction);
     }
 
     public void Shoot()

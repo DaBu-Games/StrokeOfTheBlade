@@ -21,7 +21,7 @@ MonoBehaviour:
   CollisionLayers:
     serializedVersion: 2
     m_Bits: 192
-  StartDelay: 100
+  StartDelay: 0.5
   TargetSpeed: 40
   MinProjectileSpeed: 2
   MaxProjectileSpeed: 10
