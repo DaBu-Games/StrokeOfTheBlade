@@ -16,6 +16,8 @@ public class HealthBar : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+        
+        _entity.OnHit();
 
         if (_currentHealth <= 0)
         {
