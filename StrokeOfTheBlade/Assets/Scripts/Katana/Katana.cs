@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Katana : BaseController
     [SerializeField] private GameObject _elementPrefab;
     [SerializeField] private Transform _player;
     [SerializeField] private ColliderDetection _colliderDetection;
+    [SerializeField] private MeshRenderer _meshRendererBlade;
     
     private Vector3 _lastTipPos;
     private Quaternion _lastRotation;
@@ -19,6 +21,11 @@ public class Katana : BaseController
     public Transform Tip => _tip;
     public LineRenderer LineRenderer => _lineRenderer;
 
+    private void Start()
+    {
+        _meshRendererBlade.enabled = false;
+    }
+
     new void FixedUpdate()
     {
         base.FixedUpdate();
@@ -27,7 +34,13 @@ public class Katana : BaseController
         _lastTipPos = Tip.position;
     }
 
-    public void SetElement(BaseElement element) => Element = element;
+    public void SetElement(BaseElement element)
+    {
+        Element = element;
+        _meshRendererBlade.material = element.Data.Material;
+        _meshRendererBlade.enabled = true;
+    }
+
     public BaseElement GetElement() => Element;
     public bool HasElement() => Element != null;
 
@@ -39,10 +52,6 @@ public class Katana : BaseController
         
         Vector3 direction = (middlePoint - _player.position).normalized;
         direction.y = 0f;
-        
-        //Debug.DrawLine(start, end, Color.red, 20f);
-        //Debug.DrawLine(middlePoint, _player.position, Color.blue, 20f);
-        //Debug.DrawRay(middlePoint, direction, Color.green, 20f);
         
         List<Vector3> newPoints = new List<Vector3>();
         newPoints.Add(start);

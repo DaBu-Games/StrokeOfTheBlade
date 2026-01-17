@@ -222,6 +222,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+--- !u!23 &86988069 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3732859829208738551, guid: 9c59f8a3f0b6fde41942fad851340ae8, type: 3}
+  m_PrefabInstance: {fileID: 86988068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &91931100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,6 +2207,7 @@ MonoBehaviour:
   _elementPrefab: {fileID: 8100781573060760678, guid: 693e16ffc78f76e43905655189e0c925, type: 3}
   _player: {fileID: 1042859461}
   _colliderDetection: {fileID: 1607670153}
+  _meshRendererBlade: {fileID: 86988069}
 --- !u!54 &1607670148
 Rigidbody:
   m_ObjectHideFlags: 0
