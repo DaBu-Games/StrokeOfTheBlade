@@ -103,7 +103,7 @@ public class EnemyManager : MonoBehaviour
         
         GameObject obj = Instantiate(_enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         Enemy enemy = obj.GetComponent<Enemy>();
-        enemy.Initialize(_player.position, _elementManager.GetRandomElement());
+        enemy.Initialize(_player, _elementManager.GetRandomElement());
         
         _currentEnemies.Add(enemy);
         _occupiedPoints.Add(spawnPoint);

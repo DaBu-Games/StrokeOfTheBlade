@@ -8,27 +8,36 @@ public class ElementalProjectile : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer;
     
     private BaseElement _element;
+    
+    private Transform _target;
+    
     private float _accelerationTime = 0f;
     private float _currentSpeed = 0f;
+    
     private float _elapsedSinceSpawn = 0f;
     private bool _startedMoving = false;
 
-    public void Initialize(BaseElement element, float speed, List<Vector3> points)
+    public void Initialize(BaseElement element, float speed, List<Vector3> points, Transform target = null)
     {
         _element = element;
         _lineRenderer.material = _element.Data.Material;
         _accelerationTime = GetDurationWithSpeed(speed);
 
+        if (target != null)
+        {
+            _target = target;
+        }
+        
         SetPoints(points);
     }
 
     void Update()
     {
-        _elapsedSinceSpawn += Time.deltaTime;
-        
         if (!_startedMoving)
         {
-            if (_elapsedSinceSpawn >= _element.Data.StartDelay / 1000f)
+            _elapsedSinceSpawn += Time.deltaTime;
+            
+            if (_elapsedSinceSpawn >= _element.Data.StartDelay)
             {
                 _startedMoving = true;
                 _elapsedSinceSpawn = 0f;
@@ -47,8 +56,36 @@ public class ElementalProjectile : MonoBehaviour
             }
         }
 
-        transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
+        if (_target != null)
+        {
+            Vector3 targetPos = _target.position;
+            
+            float distanceToTarget = Vector3.Distance(transform.position, targetPos);
+            Vector3 control = transform.position + transform.forward * (distanceToTarget * 0.5f);
+            
+            float t = Mathf.Clamp01((_currentSpeed * Time.deltaTime) / distanceToTarget);
+            
+            Vector3 nextPos = Evaluate(transform.position, control, targetPos, t);
+            
+            Vector3 direction = (nextPos - transform.position).normalized;
+            if (direction.sqrMagnitude > 0f)
+                transform.rotation = Quaternion.LookRotation(direction);
+            
+            transform.position = nextPos;
+        }
+        else
+        {
+            transform.position += transform.forward * (_currentSpeed * Time.deltaTime);
+        }
     }
+    
+    private Vector3 Evaluate(Vector3 start, Vector3 control, Vector3 end, float t)
+    {
+        Vector3 ac = Vector3.Lerp(start, control, t);
+        Vector3 cb = Vector3.Lerp(control, end, t);
+        return Vector3.Lerp(ac, cb, t);
+    }
+
     
     public BaseElement GetElement() => _element;
 

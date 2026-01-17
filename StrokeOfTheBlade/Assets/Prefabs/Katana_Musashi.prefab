@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499502}
   - component: {fileID: 6592210}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BladeUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
