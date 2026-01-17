@@ -8,7 +8,6 @@ public class ElementalProjectile : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer;
     
     private BaseElement _element;
-    private readonly int _steps = 20;
     
     private Transform _target;
     

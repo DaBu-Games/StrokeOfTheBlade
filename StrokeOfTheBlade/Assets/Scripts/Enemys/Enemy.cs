@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, Entity
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform _firePoint;
     
-    private Vector3 _target;
+    private Transform _target;
     private BaseElement _element;
 
     public void OnDestroy()
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, Entity
         Destroy(gameObject);
     }
 
-    public void Initialize(Vector3 target, BaseElement element)
+    public void Initialize(Transform target, BaseElement element)
     {
         _target = target;
         _element = element;
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour, Entity
 
     private Quaternion GetTargetRotation()
     { 
-        Vector3 direction = _target - transform.position;
+        Vector3 direction = _target.position - transform.position;
         direction.y = 0;
         
         if (direction.sqrMagnitude < 0.01f)
