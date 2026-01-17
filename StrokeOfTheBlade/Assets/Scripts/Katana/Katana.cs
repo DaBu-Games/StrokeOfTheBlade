@@ -51,7 +51,7 @@ public class Katana : BaseController
 
         Quaternion rotation = Quaternion.LookRotation(direction);
 
-        Vector3 target = _colliderDetection.GetClosestCollider(middlePoint, direction);
+        Transform target = _colliderDetection.GetClosestCollider(middlePoint, direction);
         
         GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
         slash.GetComponent<ElementalProjectile>().Initialize(Element, speed, newPoints, target);
