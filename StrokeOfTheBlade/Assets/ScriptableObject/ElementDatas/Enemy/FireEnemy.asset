@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9ff3e013c2457993cca1b8d0aa8103, type: 3}
   m_Name: FireEnemy
   m_EditorClassIdentifier: Assembly-CSharp::ElementalData
-  Damage: 30
+  Damage: 10
   Material: {fileID: 2100000, guid: 920c1a13c53dc8c4e8372dea3ab0391f, type: 2}
   Type: 0
   WeaknessType: 1

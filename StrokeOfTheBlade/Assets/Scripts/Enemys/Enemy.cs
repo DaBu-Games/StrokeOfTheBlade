@@ -24,6 +24,11 @@ public class Enemy : MonoBehaviour, Entity
         Destroy(gameObject);
     }
 
+    public void OnHit()
+    {
+        //hit animation
+    }
+
     public void Initialize(Transform target, BaseElement element)
     {
         _target = target;
