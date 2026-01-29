@@ -11,7 +11,6 @@ public class SheathedState : IState
 
     private InputAction _activateAction;
     
-    private ElementType _currentElement;
     private float _minRotationDif = 40;
     private float _vibrateAmplitude = 0.25f;
 
@@ -25,17 +24,13 @@ public class SheathedState : IState
 
     public void OnEnterState()
     {
-        _currentElement = ElementType.Null; 
         _kM.Katana.Vibrate(_vibrateAmplitude, 0.25f);
         _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
     }
 
     public void OnExitState()
     {
-        if(_currentElement != ElementType.Null)
-            _kM.Katana.SetElement(_eM.GetElement(_currentElement));
-        
-        _kM.Katana.Vibrate(_vibrateAmplitude, 0.5f);
+
     }
 
     public void OnUpdate() { }
@@ -60,11 +55,16 @@ public class SheathedState : IState
 
     private void ChangeCurrentElement(ElementType elementType)
     {
-        if(_currentElement == elementType)
+        var element = _kM.Katana.GetElement();
+
+        if (element?.Data != null && elementType == element.Data.Type)
+        {
             return;
+        }
         
-        _currentElement = elementType;
-        AudioClip clip = _eM.GetElement(_currentElement).Data.OnChange;
+        _kM.Katana.SetElement(_eM.GetElement(elementType));
+        _kM.Katana.Vibrate(_vibrateAmplitude, 0.5f);
+        AudioClip clip = _eM.GetElement(elementType).Data.OnChange;
         SoundManager.Instance.PlaySfx(clip);
         _kM.Sheath.Vibrate(_vibrateAmplitude, 0.25f);
     }
