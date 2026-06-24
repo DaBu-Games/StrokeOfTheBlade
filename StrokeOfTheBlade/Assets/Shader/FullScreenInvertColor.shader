@@ -12,6 +12,7 @@ Shader "Custom/FullscreenInvert"
             Cull Off
 
             HLSLPROGRAM
+            
             #pragma vertex Vert
             #pragma fragment Frag
 
@@ -20,7 +21,15 @@ Shader "Custom/FullscreenInvert"
 
             half4 Frag(Varyings input) : SV_Target
             {
-                half4 col = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, input.texcoord);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+
+                float2 uv = UnityStereoTransformScreenSpaceTex(input.texcoord);
+
+                half4 col = SAMPLE_TEXTURE2D_X(
+                    _BlitTexture,
+                    sampler_LinearClamp,
+                    uv
+                );
 
                 col.rgb = 1.0 - col.rgb;
 
