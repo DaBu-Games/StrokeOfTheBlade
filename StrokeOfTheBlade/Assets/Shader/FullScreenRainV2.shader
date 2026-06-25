@@ -15,7 +15,7 @@ Shader "Custom/FullscreenRainV2"
 
         Pass
         {
-            Name "Invert"
+            Name "Rain shader"
             ZWrite Off
             ZTest Always
             Cull Off
