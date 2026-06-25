@@ -43,8 +43,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DropSpawnRate: 0.35
-    - _DropSpawnWindow: 5
+    - _Distortion: -5
+    - _DropScale: 0
+    - _DropSpawnRate: 1
+    - _DropSpawnWindow: 8
+    - _DropTime: 1
     - _MDropCount: 1
     - _MDropMoveSpeed: 0.5
     - _MDropScale: 1
@@ -57,18 +60,19 @@ Material:
     - _MMinDropSize: 0.2
     - _MMinDropSpeed: 0.2
     - _MaxDropLifeTime: 8
-    - _MaxDropSize: 0.7
+    - _MaxDropSize: 0.1
     - _MaxLifeTime: 8
     - _MinDropLifeTime: 3
-    - _MinDropSize: 0.4
+    - _MinDropSize: 0.02
     - _MinLifeTime: 1
     - _RainBlur: 25
     - _RainDropSize: 0.6
     - _RainDropSpawnRate: 0.1
     - _RainIntensity: 1
-    - _RainScale: 25
+    - _RainScale: 1000
     - _RainSize: 0.15
     - _SpawnWindow: 6
+    - _StaticScale: 10
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
