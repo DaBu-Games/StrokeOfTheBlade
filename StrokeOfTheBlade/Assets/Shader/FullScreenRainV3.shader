@@ -56,7 +56,7 @@ Shader "Custom/FullscreenRainV3"
                 float noise = N21(cell);
 
                 // per-cell offset so drops are not synced
-                float t = (_Time.y * 0.6) + noise * 6.2831;
+                float t = (_Time.y * 0.5) + noise * 6.2831;
 
                 // base oscillation 0 → 1 → 0
                 float wave = sin(t * 0.6) * 0.5 + 0.5;
@@ -76,7 +76,7 @@ Shader "Custom/FullscreenRainV3"
 
                 float dist = length(dir);
 
-                float mask = S(0.05, 0.02, dist);
+                float mask = S(0.08, 0.04, dist);
 
                 return dir * mask * life;
             }
